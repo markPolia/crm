@@ -1,0 +1,13 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-war" name="git-crm:war exploded">
+    <output-path>$PROJECT_DIR$/out/artifacts/git_crm_war_exploded</output-path>
+    <root id="root">
+      <element id="javaee-facet-resources" facet="git-crm/web/Web" />
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="classes">
+          <element id="module-output" name="git-crm" />
+        </element>
+      </element>
+    </root>
+  </artifact>
+</component>
