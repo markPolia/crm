@@ -19,7 +19,8 @@
 
     <filter>
         <filter-name>encode</filter-name>
-        <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+        <!-- 此处改为我们重写的子类 -->
+        <filter-class>com.powernode.web.DynamicResourceEncodingFilter</filter-class>
         <init-param>
             <param-name>encoding</param-name>
             <param-value>UTF-8</param-value>
@@ -38,9 +39,11 @@
         <url-pattern>/*</url-pattern>
     </filter-mapping>
 
+    <!-- 避免访问的静态资源文件被DispatcherServlet视为Servlet请求 -->
     <servlet-mapping>
         <servlet-name>default</servlet-name>
-        <url-pattern>*.img</url-pattern>
+        <url-pattern>*.png</url-pattern>
+        <url-pattern>*.jpg</url-pattern>
         <url-pattern>*.js</url-pattern>
         <url-pattern>*.css</url-pattern>
         <url-pattern>*.html</url-pattern>

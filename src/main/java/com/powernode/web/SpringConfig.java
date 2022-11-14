@@ -38,7 +38,7 @@ public class SpringConfig {
     }
 
     @Bean
-    public static MapperScannerConfigurer mapperScannerConfigurer(@Value("classpath:com.powernode.web.mapper")
+    public static MapperScannerConfigurer mapperScannerConfigurer(@Value("com.powernode.web.mapper")
                                                                       String basePackage) {
         MapperScannerConfigurer mapperScannerConfigurer = new MapperScannerConfigurer();
         mapperScannerConfigurer.setBasePackage(basePackage);
