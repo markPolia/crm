@@ -1,5 +1,6 @@
 package com.powernode.web.domain;
 
+@SuppressWarnings("all")
 public class User {
     /*
         时间的两种表现方式

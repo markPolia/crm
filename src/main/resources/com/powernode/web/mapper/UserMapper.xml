@@ -16,6 +16,19 @@
     <result column="editTime" jdbcType="CHAR" property="edittime" />
     <result column="editBy" jdbcType="VARCHAR" property="editby" />
   </resultMap>
+  <sql id="selectAllSql">
+    select id, loginAct, name, loginPwd, email, expireTime, lockState, deptno, allowIps, createTime, createBy, editTime, editBy
+    from t_user
+  </sql>
+
+  <select id="logIn" parameterType="java.util.Map" resultMap="BaseResultMap">
+    <include refid="selectAllSql" />
+    <where>
+        loginAct = #{loginAct}
+        and loginPwd = #{loginPwd}
+    </where>
+  </select>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
     delete from t_user
     where id = #{id,jdbcType=CHAR}
