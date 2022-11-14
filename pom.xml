@@ -17,6 +17,7 @@
         <version.junit>4.13.2</version.junit>
         <version.mysql>8.0.28</version.mysql>
         <version.mybatis>3.5.11</version.mybatis>
+        <version.spring>6.0.0-M2</version.spring>
     </properties>
 
     <repositories>
@@ -31,22 +32,27 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-webmvc</artifactId>
-            <version>6.0.0-M2</version>
+            <version>${version.spring}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-aop</artifactId>
-            <version>6.0.0-M2</version>
+            <version>${version.spring}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-jdbc</artifactId>
-            <version>6.0.0-M2</version>
+            <version>${version.spring}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-context</artifactId>
-            <version>6.0.0-M2</version>
+            <version>${version.spring}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-aspects</artifactId>
+            <version>${version.spring}</version>
         </dependency>
         <dependency>
             <groupId>jakarta.annotation</groupId>
