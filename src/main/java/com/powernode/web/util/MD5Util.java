@@ -6,7 +6,12 @@ import java.security.NoSuchAlgorithmException;
 @SuppressWarnings("all")
 public class MD5Util {
 
-	public static String getMD5(String password) {
+	/**
+	 *  将密码转换为MD5密文
+	 * @param password 明文密码
+	 * @return 密码的MD5密文形式
+	 */
+	public static String generateMD5(String password) {
 		try {
 			// 得到一个信息摘要器
 			MessageDigest digest = MessageDigest.getInstance("md5");
