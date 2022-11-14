@@ -20,6 +20,9 @@ public class IndexAction {
     @Resource(type = UserService.class)
     private UserService service;
 
+    /**
+     *  welcome :-)
+     */
     @RequestMapping(value = "/index", method = RequestMethod.GET)
     public void index(HttpServletRequest request) {
         System.out.println("登陆ip地址：" + request.getRemoteAddr());
@@ -37,8 +40,6 @@ public class IndexAction {
             res.put("success", false);
             res.put("errorMsg", e.getMessage());
             return res;
-        } finally {
-            // todo
         }
         res.put("success", true);
         return res;

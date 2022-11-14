@@ -8,6 +8,7 @@ import com.powernode.web.exception.userException.UserLogIpException;
 import com.powernode.web.exception.userException.UserPasswordException;
 import com.powernode.web.mapper.UserMapper;
 import com.powernode.web.service.UserService;
+import com.powernode.web.util.DateTimeUtil;
 import com.powernode.web.util.MD5Util;
 import jakarta.annotation.Resource;
 import org.springframework.stereotype.Service;
@@ -22,22 +23,23 @@ public class UserServiceImpl implements UserService {
     private UserMapper mapper;
 
     @Override
-    public User login(String loginAct, String loginPwd, String remoteAddr) throws UserException {
+    public User login(String loginAct, String loginPwd, String ip) throws UserException {
         HashMap<String, String> userLogInfoMap = new HashMap<>();
-        userLogInfoMap.put("loginAct", MD5Util.generateMD5(loginAct));
+        userLogInfoMap.put("loginAct", loginAct);
         userLogInfoMap.put("loginPwd", MD5Util.generateMD5(loginPwd));
-        userLogInfoMap.put("ip", remoteAddr);
-
+        userLogInfoMap.put("ip", ip);
         User user = mapper.logIn(userLogInfoMap);
-
         if (user == null) {
             throw new UserPasswordException("账号或密码错误");
-        } else if ("".equals(user.getExpiretime())) {
+        } else if (DateTimeUtil.generateNowTime().compareTo(user.getExpiretime()) > 0) {
+            // 验证过期时间
             throw new UserExpireException("用户账户已过期");
-        } else if (user.getAllowips().equals("")) {
-            throw new UserLogIpException("用户ip非本地");
-        } else if (user.getLockstate().equals("1")) {
+        } else if ("0".equals(user.getLockstate())) {
+            // 验证账户状态
             throw new UserLockException("用户账号已锁定");
+        } else if (!user.getAllowips().contains(ip)) {
+            // 验证账户登陆ip
+            throw new UserLogIpException("用户ip非本地");
         }
         return user;
     }

@@ -26,5 +26,7 @@ public class ConfigTest {
         String date = "2022-11-15";
         System.out.println(date.compareTo(DateTimeUtil.generateNowDate()));
         System.out.println("password = " + MD5Util.generateMD5("2415286134@qq.com"));
+
+        System.out.println(DateTimeUtil.generateNowTime().compareTo("2018-11-27 21:50:05"));
     }
 }
