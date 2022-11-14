@@ -3,7 +3,8 @@
 <%
     pageContext.setAttribute("baseHref", request.getScheme() + "://"
             + request.getServerName() + ":" + request.getServerPort()
-            + request.getContextPath() + "/");%>
+            + request.getContextPath() + "/");
+    pageContext.setAttribute("contextPath", request.getContextPath());%>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -25,7 +26,7 @@
                 $msg.html('账号或密码为空！');
             } else {
                 $.ajax({
-                    url : '${pageContext.request.contextPath}/settings/user/login',
+                    url : '${pageScope.contextPath}/settings/user/login',
                     type : 'POST',
                     data : 'loginAct=' + loginAct +
                         '&loginPwd=' + loginPwd,
@@ -35,7 +36,7 @@
                         console.log(ajaxStr);
                         let json_ajaxStr = eval(ajaxStr);
                         if (json_ajaxStr.success) {
-                            window.location.href = '${pageContext.request.contextPath}/workbench/index.html';
+                            window.location.href = '${pageScope.contextPath}/workbench/index.jsp';
                         } else {
                             $msg.html(json_ajaxStr.errorMsg);
                         }

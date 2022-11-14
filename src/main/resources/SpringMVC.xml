@@ -10,4 +10,13 @@
 
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
     </bean>
+    
+    <annotation:interceptors>
+        <annotation:interceptor>
+            <annotation:mapping path="/*" />
+            <annotation:exclude-mapping path="/index.html" />
+            <annotation:exclude-mapping path="/login.jsp" />
+            <bean class="com.powernode.web.LoginInterceptor" />
+        </annotation:interceptor>
+    </annotation:interceptors>
 </beans>

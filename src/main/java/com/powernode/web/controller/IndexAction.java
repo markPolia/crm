@@ -20,15 +20,6 @@ public class IndexAction {
     @Resource(type = UserService.class)
     private UserService service;
 
-    /**
-     *  welcome :-)
-     */
-    @RequestMapping(value = "/index", method = RequestMethod.GET)
-    public void index(HttpServletRequest request) {
-        System.out.println("登陆ip地址：" + request.getRemoteAddr());
-        System.out.println("index");
-    }
-
     @RequestMapping("/login")
     @ResponseBody
     public Map<String, Object> login(String loginAct, String loginPwd, HttpServletRequest request, HttpSession session) {
