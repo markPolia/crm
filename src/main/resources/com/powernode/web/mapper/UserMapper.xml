@@ -28,4 +28,8 @@
         and loginPwd = #{loginPwd}
     </where>
   </select>
+  
+  <select id="selectAllUsers" resultMap="BaseResultMap">
+    <include refid="selectAllSql" />
+  </select>
 </mapper>

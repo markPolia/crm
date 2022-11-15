@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashMap;
+import java.util.List;
 
 @Service("userService")
 @Transactional
@@ -42,5 +43,10 @@ public class UserServiceImpl implements UserService {
             throw new UserLogIpException("用户ip非本地");
         }
         return user;
+    }
+
+    @Override
+    public List<User> getAllUsers() {
+        return mapper.selectAllUsers();
     }
 }

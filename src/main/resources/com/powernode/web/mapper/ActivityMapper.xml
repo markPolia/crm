@@ -16,4 +16,7 @@
   </resultMap>
   <sql id="selectAll">select id, owner, name, startDate, endDate, cost, description, createTime, createBy, editTime, editBy from t_activity</sql>
 
+  <select id="selectAllUsers" resultMap="BaseResultMap">
+    <include refid="selectAll" />
+  </select>
 </mapper>

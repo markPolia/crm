@@ -3,6 +3,8 @@ package com.powernode.web.service;
 import com.powernode.web.domain.User;
 import com.powernode.web.exception.UserException;
 
+import java.util.List;
+
 public interface UserService {
     /**
      *  验证用户是否被允许登陆
@@ -13,4 +15,10 @@ public interface UserService {
      * @throws UserException 可能导致的异常
      */
     User login(String loginAct, String loginPwd, String remoteAddr) throws UserException;
+
+    /**
+     *  查询所有的用户信息
+     * @return 用户列表
+     */
+    List<User> getAllUsers();
 }

@@ -1,16 +1,10 @@
 package com.powernode.web.mapper;
 
-import com.powernode.web.domain.Activity;
+import com.powernode.web.domain.User;
+
 import java.util.List;
 
 public interface ActivityMapper {
-    int deleteByPrimaryKey(String id);
+    List<User> selectAllUsers();
 
-    int insert(Activity row);
-
-    Activity selectByPrimaryKey(String id);
-
-    List<Activity> selectAll();
-
-    int updateByPrimaryKey(Activity row);
 }

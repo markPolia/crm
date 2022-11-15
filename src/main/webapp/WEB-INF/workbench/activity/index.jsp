@@ -7,18 +7,76 @@
 	pageContext.setAttribute("contextPath", request.getContextPath());%>
 
 <!DOCTYPE html>
-<html>
+<html lang="cn">
 <head>
 	<meta charset="UTF-8">
 	<title>市场活动</title>
 	<link href="${contextPath}/jquery/bootstrap_3.3.0/css/bootstrap.min.css" type="text/css" rel="stylesheet" />
 	<link href="${contextPath}/jquery/bootstrap-datetimepicker-master/css/bootstrap-datetimepicker.min.css" type="text/css" rel="stylesheet" />
-	<script type="text/javascript" src="${contextPath}/jquery/jquery-1.11.1-min.js"></script>
-	<script type="text/javascript" src="${contextPath}/jquery/bootstrap_3.3.0/js/bootstrap.min.js"></script>
-	<script type="text/javascript" src="${contextPath}/jquery/bootstrap-datetimepicker-master/js/bootstrap-datetimepicker.js"></script>
-	<script type="text/javascript" src="${contextPath}/jquery/bootstrap-datetimepicker-master/locale/bootstrap-datetimepicker.zh-CN.js"></script>
+	<script type="text/javascript" charset="UTF-8" src="${contextPath}/jquery/jquery-1.11.1-min.js"></script>
+	<script type="text/javascript" charset="UTF-8" src="${contextPath}/jquery/bootstrap_3.3.0/js/bootstrap.min.js"></script>
+	<script type="text/javascript" charset="UTF-8" src="${contextPath}/jquery/bootstrap-datetimepicker-master/js/bootstrap-datetimepicker.js"></script>
 	<script type="text/javascript">
-		$(function(){
+		// 导入乱码，直接贴前端了
+		;(function($){
+			$.fn.datetimepicker.dates['zh-CN'] = {
+				days: ["星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六", "星期日"],
+				daysShort: ["周日", "周一", "周二", "周三", "周四", "周五", "周六", "周日"],
+				daysMin:  ["日", "一", "二", "三", "四", "五", "六", "日"],
+				months: ["一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"],
+				monthsShort: ["一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"],
+				today: "今天",
+				suffix: [],
+				meridiem: ["上午", "下午"]
+			};
+		}(jQuery));
+
+		$(function() {
+			// 创建打开添加模态按钮
+			$('#createModalBtn').click(function () {
+				$(".time").datetimepicker({
+					minView: "month",
+					language:  'zh-CN',
+					format: 'yyyy-mm-dd',
+					autoclose: true,
+					todayBtn: true,
+					pickerPosition: "bottom-left"
+				});
+
+				$.ajax({
+					type : 'GET',
+					url : '${contextPath}/workbench/activity/getUserList',
+					async : true,
+					dataType : 'JSON',
+					success : function (jsonStr) {
+						let json_users = eval(jsonStr);
+						console.log(json_users);
+						let html = '';
+						$.each(json_users, function (index, user){
+							html += '<option value=\'' + user.id + '\'>' + user.name + '</option>';
+						});
+						let $create = $('#create-marketActivityOwner');
+						$create.html(html);
+						$create.val('${sessionScope.user.id}');
+					}
+				});
+				$('#createActivityModal').modal('show');
+			});
+			// 创建打开修改模态按钮
+			$('#editModalBtn').click(function () {
+				$('#editActivityModal').modal('show');
+			});
+
+			$('#saveMarkActivityBtn').click(function () {
+				$.ajax({
+					/* todo */
+					url : '${contextPath}/workbench/activity/saveMarkActivity',
+					data : '',
+					dataType : 'JSON',
+					type : 'POST',
+					async : true
+				})
+			});
 		});
 	</script>
 </head>
@@ -39,9 +97,7 @@
 							<label for="create-marketActivityOwner" class="col-sm-2 control-label">所有者<span style="font-size: 15px; color: red;">*</span></label>
 							<div class="col-sm-10" style="width: 300px;">
 								<select class="form-control" id="create-marketActivityOwner">
-								  <option>zhangsan</option>
-								  <option>lisi</option>
-								  <option>wangwu</option>
+									<option>请选择用户</option>
 								</select>
 							</div>
                             <label for="create-marketActivityName" class="col-sm-2 control-label">名称<span style="font-size: 15px; color: red;">*</span></label>
@@ -52,11 +108,11 @@
 						<div class="form-group">
 							<label for="create-startTime" class="col-sm-2 control-label">开始日期</label>
 							<div class="col-sm-10" style="width: 300px;">
-								<input type="text" class="form-control" id="create-startTime">
+								<input type="text" class="form-control time" id="create-startTime" readonly>
 							</div>
 							<label for="create-endTime" class="col-sm-2 control-label">结束日期</label>
 							<div class="col-sm-10" style="width: 300px;">
-								<input type="text" class="form-control" id="create-endTime">
+								<input type="text" class="form-control time" id="create-endTime" readonly>
 							</div>
 						</div>
                         <div class="form-group">
@@ -75,7 +131,7 @@
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-					<button type="button" class="btn btn-primary" data-dismiss="modal">保存</button>
+					<button type="button" class="btn btn-primary" id="saveMarkActivityBtn">保存</button>
 				</div>
 			</div>
 		</div>
@@ -179,8 +235,14 @@
 			</div>
 			<div class="btn-toolbar" role="toolbar" style="background-color: #F7F7F7; height: 50px; position: relative;top: 5px;">
 				<div class="btn-group" style="position: relative; top: 18%;">
-				  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createActivityModal"><span class="glyphicon glyphicon-plus"></span> 创建</button>
-				  <button type="button" class="btn btn-default" data-toggle="modal" data-target="#editActivityModal"><span class="glyphicon glyphicon-pencil"></span> 修改</button>
+				  <%--
+				  		data-toggle 点击打开模态按钮
+				  		data-taget  模态窗口对象
+
+				  		无法对按钮功能进行扩充
+				  --%>
+				  <button type="button" class="btn btn-primary" id="createModalBtn"><span class="glyphicon glyphicon-plus"></span> 创建</button>
+				  <button type="button" class="btn btn-default" id="editModalBtn"><span class="glyphicon glyphicon-pencil"></span> 修改</button>
 				  <button type="button" class="btn btn-danger"><span class="glyphicon glyphicon-minus"></span> 删除</button>
 				</div>
 			</div>
