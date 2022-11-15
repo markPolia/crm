@@ -26,7 +26,7 @@
                 $msg.html('账号或密码为空！');
             } else {
                 $.ajax({
-                    url : '${pageScope.contextPath}/settings/user/login',
+                    url : '${contextPath}/settings/user/login',
                     type : 'POST',
                     data : 'loginAct=' + loginAct +
                         '&loginPwd=' + loginPwd,
@@ -36,7 +36,7 @@
                         console.log(ajaxStr);
                         let json_ajaxStr = eval(ajaxStr);
                         if (json_ajaxStr.success) {
-                            window.location.href = '${pageScope.contextPath}/workbench/index.jsp';
+                            window.location.href = '${contextPath}/workbench/index';
                         } else {
                             $msg.html(json_ajaxStr.errorMsg);
                         }
@@ -83,7 +83,7 @@
                         <input class="form-control" type="password" placeholder="密码" id="loginPwd">
                     </div>
                     <div class="checkbox"  style="position: relative;top: 30px; left: 10px;">
-                        <span style="color: red" id="msg"></span>
+                        <span style="color: red" id="msg">${requestScope.error}</span>
                     </div>
                     <%--
                         按钮写在表单中，默认就是提交表单

@@ -1,0 +1,13 @@
+package com.powernode.web.controller;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+@Controller
+@RequestMapping("/workbench")
+public class WorkbenchAction {
+    @RequestMapping(value = "/index")
+    public String workbenchIndex() {
+        return "workbench/index";
+    }
+}

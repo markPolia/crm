@@ -8,6 +8,8 @@ import org.springframework.context.annotation.*;
 import org.springframework.core.io.Resource;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import javax.sql.DataSource;
 
@@ -17,6 +19,7 @@ import javax.sql.DataSource;
 @EnableTransactionManagement
 @EnableAspectJAutoProxy
 public class SpringConfig {
+
     @Bean
     public static DataSource dataSource(@Value("${jdbc.driver}") String driver,
                                         @Value("${jdbc.url}") String url,
