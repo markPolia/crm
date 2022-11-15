@@ -2,6 +2,7 @@ package com.powernode.web.util;
 
 import java.util.Date;
 
+@SuppressWarnings("all")
 public class DateTimeUtil {
     private final static String DATE_FORMAT = "%1$tY-%1$tm-%1$td";
     private final static String TIME_FORMAT = "%1$tY-%1$tm-%1$td %1$tT";
