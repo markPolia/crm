@@ -25,4 +25,6 @@ public class WorkbenchAction {
     public String activityIndex() {
         return "workbench/activity/index";
     }
+
+    
 }

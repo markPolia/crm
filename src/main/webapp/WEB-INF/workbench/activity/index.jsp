@@ -34,9 +34,7 @@
 					<h4 class="modal-title" id="myModalLabel1">创建市场活动</h4>
 				</div>
 				<div class="modal-body">
-				
 					<form class="form-horizontal" role="form">
-					
 						<div class="form-group">
 							<label for="create-marketActivityOwner" class="col-sm-2 control-label">所有者<span style="font-size: 15px; color: red;">*</span></label>
 							<div class="col-sm-10" style="width: 300px;">
@@ -51,7 +49,6 @@
                                 <input type="text" class="form-control" id="create-marketActivityName">
                             </div>
 						</div>
-						
 						<div class="form-group">
 							<label for="create-startTime" class="col-sm-2 control-label">开始日期</label>
 							<div class="col-sm-10" style="width: 300px;">
@@ -63,7 +60,6 @@
 							</div>
 						</div>
                         <div class="form-group">
-
                             <label for="create-cost" class="col-sm-2 control-label">成本</label>
                             <div class="col-sm-10" style="width: 300px;">
                                 <input type="text" class="form-control" id="create-cost">
@@ -75,9 +71,7 @@
 								<textarea class="form-control" rows="3" id="create-describe"></textarea>
 							</div>
 						</div>
-						
 					</form>
-					
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
@@ -98,9 +92,7 @@
 					<h4 class="modal-title" id="myModalLabel2">修改市场活动</h4>
 				</div>
 				<div class="modal-body">
-				
 					<form class="form-horizontal" role="form">
-					
 						<div class="form-group">
 							<label for="edit-marketActivityOwner" class="col-sm-2 control-label">所有者<span style="font-size: 15px; color: red;">*</span></label>
 							<div class="col-sm-10" style="width: 300px;">
@@ -115,7 +107,6 @@
                                 <input type="text" class="form-control" id="edit-marketActivityName" value="发传单">
                             </div>
 						</div>
-
 						<div class="form-group">
 							<label for="edit-startTime" class="col-sm-2 control-label">开始日期</label>
 							<div class="col-sm-10" style="width: 300px;">
@@ -126,23 +117,19 @@
 								<input type="text" class="form-control" id="edit-endTime" value="2020-10-20">
 							</div>
 						</div>
-						
 						<div class="form-group">
 							<label for="edit-cost" class="col-sm-2 control-label">成本</label>
 							<div class="col-sm-10" style="width: 300px;">
 								<input type="text" class="form-control" id="edit-cost" value="5,000">
 							</div>
 						</div>
-						
 						<div class="form-group">
 							<label for="edit-describe" class="col-sm-2 control-label">描述</label>
 							<div class="col-sm-10" style="width: 81%;">
 								<textarea class="form-control" rows="3" id="edit-describe">市场活动Marketing，是指品牌主办或参与的展览会议与公关市场活动，包括自行主办的各类研讨会、客户交流会、演示会、新产品发布会、体验会、答谢会、年会和出席参加并布展或演讲的展览会、研讨会、行业交流会、颁奖典礼等</textarea>
 							</div>
 						</div>
-						
 					</form>
-					
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
@@ -151,10 +138,7 @@
 			</div>
 		</div>
 	</div>
-	
-	
-	
-	
+
 	<div>
 		<div style="position: relative; left: 10px; top: -10px;">
 			<div class="page-header">
@@ -164,25 +148,20 @@
 	</div>
 	<div style="position: relative; top: -20px; left: 0; width: 100%; height: 100%;">
 		<div style="width: 100%; position: absolute;top: 5px; left: 10px;">
-		
 			<div class="btn-toolbar" role="toolbar" style="height: 80px;">
 				<form class="form-inline" role="form" style="position: relative;top: 8%; left: 5px;">
-				  
 				  <div class="form-group">
 				    <div class="input-group">
 				      <div class="input-group-addon">名称</div>
 				      <input class="form-control" type="text">
 				    </div>
 				  </div>
-				  
 				  <div class="form-group">
 				    <div class="input-group">
 				      <div class="input-group-addon">所有者</div>
 				      <input class="form-control" type="text">
 				    </div>
 				  </div>
-
-
 				  <div class="form-group">
 				    <div class="input-group">
 				      <div class="input-group-addon">开始日期</div>
@@ -195,9 +174,7 @@
 					  <input class="form-control" type="text" id="endTime">
 				    </div>
 				  </div>
-				  
 				  <button type="submit" class="btn btn-default">查询</button>
-				  
 				</form>
 			</div>
 			<div class="btn-toolbar" role="toolbar" style="background-color: #F7F7F7; height: 50px; position: relative;top: 5px;">
@@ -206,7 +183,6 @@
 				  <button type="button" class="btn btn-default" data-toggle="modal" data-target="#editActivityModal"><span class="glyphicon glyphicon-pencil"></span> 修改</button>
 				  <button type="button" class="btn btn-danger"><span class="glyphicon glyphicon-minus"></span> 删除</button>
 				</div>
-				
 			</div>
 			<div style="position: relative;top: 10px;">
 				<table class="table table-hover">
@@ -237,7 +213,6 @@
 					</tbody>
 				</table>
 			</div>
-			
 			<div style="height: 50px; position: relative;top: 30px;">
 				<div>
 					<button type="button" class="btn btn-default" style="cursor: default;">共<b>50</b>条记录</button>
@@ -272,9 +247,7 @@
 					</nav>
 				</div>
 			</div>
-			
 		</div>
-		
 	</div>
 </body>
 </html>
