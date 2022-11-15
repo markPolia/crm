@@ -19,7 +19,7 @@
 
     <filter>
         <filter-name>encode</filter-name>
-        <filter-class>com.powernode.web.DynamicResourceEncodingFilter</filter-class>
+        <filter-class>com.powernode.web.filter.DynamicResourceEncodingFilter</filter-class>
         <init-param>
             <param-name>encoding</param-name>
             <param-value>UTF-8</param-value>

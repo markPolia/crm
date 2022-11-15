@@ -34,7 +34,8 @@
             <property name="enableSubPackages" value="true"/>
         </javaClientGenerator>
 
-        <table tableName="t_user" domainObjectName="User"/>
+        <table tableName="t_activity" domainObjectName="Activity"/>
+        <table tableName="t_activity_remark" domainObjectName="ActivityRemark"/>
 
     </context>
 </generatorConfiguration>

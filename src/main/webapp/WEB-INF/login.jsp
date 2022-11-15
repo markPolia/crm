@@ -46,6 +46,10 @@
         }
 
         $(function () {
+            if (window.top !== window) {
+                window.top.location = window.location;
+            }
+
             let $input = $(':input');
             // 自动获得焦点
             $input[0].focus();

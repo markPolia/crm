@@ -28,48 +28,4 @@
         and loginPwd = #{loginPwd}
     </where>
   </select>
-
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
-    delete from t_user
-    where id = #{id,jdbcType=CHAR}
-  </delete>
-  <insert id="insert" parameterType="com.powernode.web.domain.User">
-    insert into t_user (id, loginAct, name, 
-      loginPwd, email, expireTime, 
-      lockState, deptno, allowIps, 
-      createTime, createBy, editTime, 
-      editBy)
-    values (#{id,jdbcType=CHAR}, #{loginact,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
-      #{loginpwd,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{expiretime,jdbcType=CHAR}, 
-      #{lockstate,jdbcType=CHAR}, #{deptno,jdbcType=CHAR}, #{allowips,jdbcType=VARCHAR}, 
-      #{createtime,jdbcType=CHAR}, #{createby,jdbcType=VARCHAR}, #{edittime,jdbcType=CHAR}, 
-      #{editby,jdbcType=VARCHAR})
-  </insert>
-  <update id="updateByPrimaryKey" parameterType="com.powernode.web.domain.User">
-    update t_user
-    set loginAct = #{loginact,jdbcType=VARCHAR},
-      name = #{name,jdbcType=VARCHAR},
-      loginPwd = #{loginpwd,jdbcType=VARCHAR},
-      email = #{email,jdbcType=VARCHAR},
-      expireTime = #{expiretime,jdbcType=CHAR},
-      lockState = #{lockstate,jdbcType=CHAR},
-      deptno = #{deptno,jdbcType=CHAR},
-      allowIps = #{allowips,jdbcType=VARCHAR},
-      createTime = #{createtime,jdbcType=CHAR},
-      createBy = #{createby,jdbcType=VARCHAR},
-      editTime = #{edittime,jdbcType=CHAR},
-      editBy = #{editby,jdbcType=VARCHAR}
-    where id = #{id,jdbcType=CHAR}
-  </update>
-  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
-    select id, loginAct, name, loginPwd, email, expireTime, lockState, deptno, allowIps, 
-    createTime, createBy, editTime, editBy
-    from t_user
-    where id = #{id,jdbcType=CHAR}
-  </select>
-  <select id="selectAll" resultMap="BaseResultMap">
-    select id, loginAct, name, loginPwd, email, expireTime, lockState, deptno, allowIps, 
-    createTime, createBy, editTime, editBy
-    from t_user
-  </select>
 </mapper>

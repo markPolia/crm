@@ -1,4 +1,4 @@
-package com.powernode.web;
+package com.powernode.web.filter;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;

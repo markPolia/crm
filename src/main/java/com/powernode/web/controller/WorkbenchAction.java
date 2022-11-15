@@ -10,4 +10,19 @@ public class WorkbenchAction {
     public String workbenchIndex() {
         return "workbench/index";
     }
+
+    @RequestMapping("/main/index")
+    public String mainIndex() {
+        return "workbench/main/index";
+    }
+
+    @RequestMapping("/activity/detail")
+    public String activityDetail() {
+        return "workbench/activity/detail";
+    }
+
+    @RequestMapping("/activity/index")
+    public String activityIndex() {
+        return "workbench/activity/index";
+    }
 }
