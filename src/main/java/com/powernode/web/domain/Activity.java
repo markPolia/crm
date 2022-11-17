@@ -17,11 +17,11 @@ public class Activity {
     /**
      *  开始日期    10位
      */
-    private String startdate;
+    private String startDate;
     /**
      *  结束日期    10位
      */
-    private String enddate;
+    private String endDate;
     /**
      *  成本
      */
@@ -33,19 +33,19 @@ public class Activity {
     /**
      *  创建时间   19位
      */
-    private String createtime;
+    private String createTime;
     /**
      *  创建者
      */
-    private String createby;
+    private String createBy;
     /**
      *  修改时间    19位
      */
-    private String edittime;
+    private String editTime;
     /**
      *  修改人
      */
-    private String editby;
+    private String editBy;
 
     public String getId() {
         return id;
@@ -71,20 +71,20 @@ public class Activity {
         this.name = name == null ? null : name.trim();
     }
 
-    public String getStartdate() {
-        return startdate;
+    public String getStartDate() {
+        return startDate;
     }
 
-    public void setStartdate(String startdate) {
-        this.startdate = startdate == null ? null : startdate.trim();
+    public void setStartDate(String startDate) {
+        this.startDate = startDate == null ? null : startDate.trim();
     }
 
-    public String getEnddate() {
-        return enddate;
+    public String getEndDate() {
+        return endDate;
     }
 
-    public void setEnddate(String enddate) {
-        this.enddate = enddate == null ? null : enddate.trim();
+    public void setEndDate(String endDate) {
+        this.endDate = endDate == null ? null : endDate.trim();
     }
 
     public String getCost() {
@@ -103,35 +103,35 @@ public class Activity {
         this.description = description == null ? null : description.trim();
     }
 
-    public String getCreatetime() {
-        return createtime;
+    public String getCreateTime() {
+        return createTime;
     }
 
-    public void setCreatetime(String createtime) {
-        this.createtime = createtime == null ? null : createtime.trim();
+    public void setCreateTime(String createTime) {
+        this.createTime = createTime == null ? null : createTime.trim();
     }
 
-    public String getCreateby() {
-        return createby;
+    public String getCreateBy() {
+        return createBy;
     }
 
-    public void setCreateby(String createby) {
-        this.createby = createby == null ? null : createby.trim();
+    public void setCreateBy(String createBy) {
+        this.createBy = createBy == null ? null : createBy.trim();
     }
 
-    public String getEdittime() {
-        return edittime;
+    public String getEditTime() {
+        return editTime;
     }
 
-    public void setEdittime(String edittime) {
-        this.edittime = edittime == null ? null : edittime.trim();
+    public void setEditTime(String editTime) {
+        this.editTime = editTime == null ? null : editTime.trim();
     }
 
-    public String getEditby() {
-        return editby;
+    public String getEditBy() {
+        return editBy;
     }
 
-    public void setEditby(String editby) {
-        this.editby = editby == null ? null : editby.trim();
+    public void setEditBy(String editBy) {
+        this.editBy = editBy == null ? null : editBy.trim();
     }
 }

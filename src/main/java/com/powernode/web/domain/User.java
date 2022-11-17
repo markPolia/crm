@@ -13,7 +13,7 @@ public class User {
     /*
         关于登陆
 
-        User user = select * from t_user where loginact = ? and loginpwd = ?
+        User user = select * from t_user where loginAct = ? and loginPwd = ?
         user 不为空，说明账户存在
         但还需要进行
             expire-time 过期时间
@@ -29,7 +29,7 @@ public class User {
     /**
      * 登陆账户
      */
-    private String loginact;
+    private String loginAct;
     /**
      *  真实姓名
      */
@@ -37,7 +37,7 @@ public class User {
     /**
      *  登录密码
      */
-    private String loginpwd;
+    private String loginPwd;
     /**
      *  邮箱
      */
@@ -45,38 +45,38 @@ public class User {
     /**
      *  失效时间 19
      */
-    private String expiretime;
+    private String expireTime;
     /**
      *  锁定状态
      *  <pre>
      *      0 -锁定
      *      1 -启用</pre>
      */
-    private String lockstate;
+    private String lockState;
     /**
      *  部门编号
      */
-    private String deptno;
+    private String deptNo;
     /**
      *  允许访问ip
      */
-    private String allowips;
+    private String allowIps;
     /**
      *  创建时间 19
      */
-    private String createtime;
+    private String createTime;
     /**
      *  创建人
      */
-    private String createby;
+    private String createBy;
     /**
      *  修改时间    19
      */
-    private String edittime;
+    private String editTime;
     /**
      *  修改人
      */
-    private String editby;
+    private String editBy;
 
     public String getId() {
         return id;
@@ -86,12 +86,12 @@ public class User {
         this.id = id == null ? null : id.trim();
     }
 
-    public String getLoginact() {
-        return loginact;
+    public String getLoginAct() {
+        return loginAct;
     }
 
-    public void setLoginact(String loginact) {
-        this.loginact = loginact == null ? null : loginact.trim();
+    public void setLoginAct(String loginAct) {
+        this.loginAct = loginAct == null ? null : loginAct.trim();
     }
 
     public String getName() {
@@ -102,12 +102,12 @@ public class User {
         this.name = name == null ? null : name.trim();
     }
 
-    public String getLoginpwd() {
-        return loginpwd;
+    public String getLoginPwd() {
+        return loginPwd;
     }
 
-    public void setLoginpwd(String loginpwd) {
-        this.loginpwd = loginpwd == null ? null : loginpwd.trim();
+    public void setLoginPwd(String loginPwd) {
+        this.loginPwd = loginPwd == null ? null : loginPwd.trim();
     }
 
     public String getEmail() {
@@ -118,67 +118,67 @@ public class User {
         this.email = email == null ? null : email.trim();
     }
 
-    public String getExpiretime() {
-        return expiretime;
+    public String getExpireTime() {
+        return expireTime;
     }
 
-    public void setExpiretime(String expiretime) {
-        this.expiretime = expiretime == null ? null : expiretime.trim();
+    public void setExpireTime(String expireTime) {
+        this.expireTime = expireTime == null ? null : expireTime.trim();
     }
 
-    public String getLockstate() {
-        return lockstate;
+    public String getLockState() {
+        return lockState;
     }
 
-    public void setLockstate(String lockstate) {
-        this.lockstate = lockstate == null ? null : lockstate.trim();
+    public void setLockState(String lockState) {
+        this.lockState = lockState == null ? null : lockState.trim();
     }
 
-    public String getDeptno() {
-        return deptno;
+    public String getDeptNo() {
+        return deptNo;
     }
 
-    public void setDeptno(String deptno) {
-        this.deptno = deptno == null ? null : deptno.trim();
+    public void setDeptNo(String deptNo) {
+        this.deptNo = deptNo == null ? null : deptNo.trim();
     }
 
-    public String getAllowips() {
-        return allowips;
+    public String getAllowIps() {
+        return allowIps;
     }
 
-    public void setAllowips(String allowips) {
-        this.allowips = allowips == null ? null : allowips.trim();
+    public void setAllowIps(String allowIps) {
+        this.allowIps = allowIps == null ? null : allowIps.trim();
     }
 
-    public String getCreatetime() {
-        return createtime;
+    public String getCreateTime() {
+        return createTime;
     }
 
-    public void setCreatetime(String createtime) {
-        this.createtime = createtime == null ? null : createtime.trim();
+    public void setCreateTime(String createTime) {
+        this.createTime = createTime == null ? null : createTime.trim();
     }
 
-    public String getCreateby() {
-        return createby;
+    public String getCreateBy() {
+        return createBy;
     }
 
-    public void setCreateby(String createby) {
-        this.createby = createby == null ? null : createby.trim();
+    public void setCreateBy(String createBy) {
+        this.createBy = createBy == null ? null : createBy.trim();
     }
 
-    public String getEdittime() {
-        return edittime;
+    public String getEditTime() {
+        return editTime;
     }
 
-    public void setEdittime(String edittime) {
-        this.edittime = edittime == null ? null : edittime.trim();
+    public void setEditTime(String editTime) {
+        this.editTime = editTime == null ? null : editTime.trim();
     }
 
-    public String getEditby() {
-        return editby;
+    public String getEditBy() {
+        return editBy;
     }
 
-    public void setEditby(String editby) {
-        this.editby = editby == null ? null : editby.trim();
+    public void setEditBy(String editBy) {
+        this.editBy = editBy == null ? null : editBy.trim();
     }
 }

@@ -67,14 +67,35 @@
 				$('#editActivityModal').modal('show');
 			});
 
-			$('#saveMarkActivityBtn').click(function () {
+			// 添加市场活动操作
+			$('#createMarkActivityBtn').click(function () {
 				$.ajax({
-					/* todo */
-					url : '${contextPath}/workbench/activity/saveMarkActivity',
-					data : '',
+					url : '${contextPath}/workbench/activity/createMarkActivity',
+					data : {
+						'owner' : $.trim($('#create-marketActivityOwner').val()), /* 所有者 */
+						'name' : $.trim($('#create-marketActivityName').val()),   /* 名称 */
+						'startDate' : $.trim($('#create-startTime').val()), 					   /* 开始日期 */
+						'endDate' : $.trim($('#create-endTime').val()),                         /* 结束日期 */
+						'cost' : $.trim($('#create-cost').val()),                               /* 成本 */
+						'description' : $.trim($('#create-describe').val())                        /* 描述 */
+					},
 					dataType : 'JSON',
 					type : 'POST',
-					async : true
+					async : true,
+					success : function (jsonStr) {
+						let json_situation = eval(jsonStr);
+						console.log(json_situation);
+						if (json_situation.success) {
+							// 添加成功
+							// 局部刷新市场活动列表
+							// 关闭
+							$('#createActivityModal').modal('hide');
+							$('#saveActivityForm')[0].reset();
+						} else {
+							// 添加失败
+							alert('添加失败');
+						}
+					}
 				})
 			});
 		});
@@ -92,7 +113,7 @@
 					<h4 class="modal-title" id="myModalLabel1">创建市场活动</h4>
 				</div>
 				<div class="modal-body">
-					<form class="form-horizontal" role="form">
+					<form class="form-horizontal" role="form" id="saveActivityForm">
 						<div class="form-group">
 							<label for="create-marketActivityOwner" class="col-sm-2 control-label">所有者<span style="font-size: 15px; color: red;">*</span></label>
 							<div class="col-sm-10" style="width: 300px;">
@@ -131,7 +152,7 @@
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-					<button type="button" class="btn btn-primary" id="saveMarkActivityBtn">保存</button>
+					<button type="button" class="btn btn-primary" id="createMarkActivityBtn">保存</button>
 				</div>
 			</div>
 		</div>

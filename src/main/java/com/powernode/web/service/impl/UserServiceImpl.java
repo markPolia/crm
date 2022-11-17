@@ -32,13 +32,13 @@ public class UserServiceImpl implements UserService {
         User user = mapper.logIn(userLogInfoMap);
         if (user == null) {
             throw new UserPasswordException("账号或密码错误");
-        } else if (DateTimeUtil.generateNowTime().compareTo(user.getExpiretime()) > 0) {
+        } else if (DateTimeUtil.generateNowTime().compareTo(user.getExpireTime()) > 0) {
             // 验证过期时间
             throw new UserExpireException("用户账户已过期");
-        } else if ("0".equals(user.getLockstate())) {
+        } else if ("0".equals(user.getLockState())) {
             // 验证账户状态
             throw new UserLockException("用户账号已锁定");
-        } else if (!user.getAllowips().contains(ip)) {
+        } else if (!user.getAllowIps().contains(ip)) {
             // 验证账户登陆ip
             throw new UserLogIpException("用户ip非本地");
         }
