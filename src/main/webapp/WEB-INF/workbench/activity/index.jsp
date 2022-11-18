@@ -1,21 +1,22 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ page isELIgnored="false" %>
-<%
-	pageContext.setAttribute("base", request.getScheme() + "://"
-			+ request.getServerName() + ":" + request.getServerPort()
-			+ request.getContextPath() + "/");
-	pageContext.setAttribute("contextPath", request.getContextPath());%>
+<%pageContext.setAttribute("base", request.getScheme() + "://" + request.getServerName()
+		+ ":" + request.getServerPort() + request.getContextPath() + "/");
+		pageContext.setAttribute("contextPath", request.getContextPath());%>
 
 <!DOCTYPE html>
-<html lang="cn">
+<html>
 <head>
 	<meta charset="UTF-8">
 	<title>市场活动</title>
 	<link href="${contextPath}/jquery/bootstrap_3.3.0/css/bootstrap.min.css" type="text/css" rel="stylesheet" />
 	<link href="${contextPath}/jquery/bootstrap-datetimepicker-master/css/bootstrap-datetimepicker.min.css" type="text/css" rel="stylesheet" />
+	<link href="${contextPath}/jquery/bs_pagination/jquery.bs_pagination.min.css" type="text/css" rel="stylesheet" />
 	<script type="text/javascript" charset="UTF-8" src="${contextPath}/jquery/jquery-1.11.1-min.js"></script>
 	<script type="text/javascript" charset="UTF-8" src="${contextPath}/jquery/bootstrap_3.3.0/js/bootstrap.min.js"></script>
 	<script type="text/javascript" charset="UTF-8" src="${contextPath}/jquery/bootstrap-datetimepicker-master/js/bootstrap-datetimepicker.js"></script>
+	<script type="text/javascript" charset="UTF-8" src="${contextPath}/jquery/bs_pagination/jquery.bs_pagination.min.js"></script>
+	<script type="text/javascript" charset="UTF-8" src="${contextPath}/jquery/bs_pagination/en.js"></script>
 	<script type="text/javascript">
 		// 导入乱码，直接贴前端了
 		;(function($){
@@ -31,7 +32,68 @@
 			};
 		}(jQuery));
 
+		function pageList(pageNo, pageSize) {
+			if (pageNo == null || pageNo < 1) pageNo = 1;
+			if (pageSize == null || pageSize < 1) pageSize = 2;
+			$.ajax({
+				url : '${contextPath}/workbench/activity/activitiesList',
+				type : 'GET',
+				data : {
+					pageNo : pageNo,
+					pageSize : pageSize,
+					name : $.trim($('#search_name').val()),
+					owner : $.trim($('#search_owner').val()),
+					startDate : $.trim($('#search_start_date').val()),
+					endDate : $.trim($('#search_end_date').val())
+				},
+				async : true,
+				dataType : 'JSON',
+				success : function (activitiesListJsonStr) {
+					let html = '';
+					let data = eval(activitiesListJsonStr);
+					$.each(data.dataList, function (index, activity) {
+						html +=
+						'<tr class="active">' +
+							'<td><input type="checkbox" value="' + activity.id + '"/></td>' +
+							'<td><a style="text-decoration: none; cursor: pointer;" onclick="window.location.href=\'detail\';">' + activity.name + '</a></td>' +
+							'<td>' + activity.owner + '</td>' +
+							'<td>' + activity.startDate + '</td>' +
+							'<td>' + activity.endDate + '</td>' +
+						'</tr>';
+					});
+					$('#activitiesListTableBody').html(html);
+					/////////////////////////// 分页插件 //////////////////////////////
+					$("#activityPage").bs_pagination({
+						currentPage: pageNo, // 页码
+						rowsPerPage: pageSize, // 每页显示的记录条数
+						maxRowsPerPage: 20, // 每页最多显示的记录条数
+						totalPages: data.pageSize, // 总页数
+						totalRows: data.total, // 总记录条数
+
+						visiblePageLinks: 3, // 显示几个卡片
+
+						showGoToPage: true,
+						showRowsPerPage: true,
+						showRowsInfo: true,
+						showRowsDefaultInfo: true,
+
+						onChangePage : function(event, data){
+							pageList(data.currentPage , data.rowsPerPage);
+						}
+					});
+					//////////////////////////////////////////////////////////////////////
+				}
+			})
+		}
+
 		$(function() {
+			// 展示市场活动列表
+			pageList(1, 2);
+			console.log('----------页面重新加载----------')
+			$('#search-bth').click(function () {
+				pageList(1, 2);
+			});
+
 			// 创建打开添加模态按钮
 			$('#createModalBtn').click(function () {
 				$(".time").datetimepicker({
@@ -49,10 +111,8 @@
 					async : true,
 					dataType : 'JSON',
 					success : function (jsonStr) {
-						let json_users = eval(jsonStr);
-						console.log(json_users);
 						let html = '';
-						$.each(json_users, function (index, user){
+						$.each(eval(jsonStr), function (index, user){
 							html += '<option value=\'' + user.id + '\'>' + user.name + '</option>';
 						});
 						let $create = $('#create-marketActivityOwner');
@@ -72,25 +132,25 @@
 				$.ajax({
 					url : '${contextPath}/workbench/activity/createMarkActivity',
 					data : {
-						'owner' : $.trim($('#create-marketActivityOwner').val()), /* 所有者 */
-						'name' : $.trim($('#create-marketActivityName').val()),   /* 名称 */
-						'startDate' : $.trim($('#create-startTime').val()), 					   /* 开始日期 */
-						'endDate' : $.trim($('#create-endTime').val()),                         /* 结束日期 */
-						'cost' : $.trim($('#create-cost').val()),                               /* 成本 */
-						'description' : $.trim($('#create-describe').val())                        /* 描述 */
+						'owner' : $.trim($('#create-marketActivityOwner').val()), /* 所有者   */
+						'name' : $.trim($('#create-marketActivityName').val()),   /* 名称     */
+						'startDate' : $.trim($('#create-startTime').val()), 	  /* 开始日期 */
+						'endDate' : $.trim($('#create-endTime').val()),           /* 结束日期 */
+						'cost' : $.trim($('#create-cost').val()),                 /* 成本     */
+						'description' : $.trim($('#create-describe').val())       /* 描述     */
 					},
 					dataType : 'JSON',
 					type : 'POST',
 					async : true,
 					success : function (jsonStr) {
-						let json_situation = eval(jsonStr);
-						console.log(json_situation);
-						if (json_situation.success) {
+						if (eval(jsonStr).success) {
 							// 添加成功
 							// 局部刷新市场活动列表
 							// 关闭
 							$('#createActivityModal').modal('hide');
+							// 清空表单
 							$('#saveActivityForm')[0].reset();
+							pageList(1, 2);
 						} else {
 							// 添加失败
 							alert('添加失败');
@@ -230,28 +290,28 @@
 				  <div class="form-group">
 				    <div class="input-group">
 				      <div class="input-group-addon">名称</div>
-				      <input class="form-control" type="text">
+				      <input class="form-control" type="text" id="search_name">
 				    </div>
 				  </div>
 				  <div class="form-group">
 				    <div class="input-group">
 				      <div class="input-group-addon">所有者</div>
-				      <input class="form-control" type="text">
+				      <input class="form-control" type="text" id="search_owner">
 				    </div>
 				  </div>
 				  <div class="form-group">
 				    <div class="input-group">
 				      <div class="input-group-addon">开始日期</div>
-					  <input class="form-control" type="text" id="startTime" />
+					  <input class="form-control" type="text" id="search_start_date"/>
 				    </div>
 				  </div>
 				  <div class="form-group">
 				    <div class="input-group">
 				      <div class="input-group-addon">结束日期</div>
-					  <input class="form-control" type="text" id="endTime">
+					  <input class="form-control" type="text" id="search_end_date">
 				    </div>
 				  </div>
-				  <button type="submit" class="btn btn-default">查询</button>
+				  <button type="button" class="btn btn-default" id="search-bth">查询</button>
 				</form>
 			</div>
 			<div class="btn-toolbar" role="toolbar" style="background-color: #F7F7F7; height: 50px; position: relative;top: 5px;">
@@ -278,56 +338,19 @@
 							<td>结束日期</td>
 						</tr>
 					</thead>
-					<tbody>
+					<tbody id="activitiesListTableBody">
 						<tr class="active">
-							<td><input type="checkbox" /></td>
-							<td><a style="text-decoration: none; cursor: pointer;" onclick="window.location.href='detail';">发传单</a></td>
-                            <td>zhangsan</td>
-							<td>2020-10-10</td>
-							<td>2020-10-20</td>
+							<td><input type="checkbox" disabled /></td>
+							<td>无数据</td>
+                            <td>无数据</td>
+							<td>无数据</td>
+							<td>无数据</td>
 						</tr>
-                        <tr class="active">
-                            <td><input type="checkbox" /></td>
-                            <td><a style="text-decoration: none; cursor: pointer;" onclick="window.location.href='detail';">发传单</a></td>
-                            <td>zhangsan</td>
-                            <td>2020-10-10</td>
-                            <td>2020-10-20</td>
-                        </tr>
 					</tbody>
 				</table>
 			</div>
 			<div style="height: 50px; position: relative;top: 30px;">
-				<div>
-					<button type="button" class="btn btn-default" style="cursor: default;">共<b>50</b>条记录</button>
-				</div>
-				<div class="btn-group" style="position: relative;top: -34px; left: 110px;">
-					<button type="button" class="btn btn-default" style="cursor: default;">显示</button>
-					<div class="btn-group">
-						<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-							10
-							<span class="caret"></span>
-						</button>
-						<ul class="dropdown-menu" role="menu">
-							<li><a href="#">20</a></li>
-							<li><a href="#">30</a></li>
-						</ul>
-					</div>
-					<button type="button" class="btn btn-default" style="cursor: default;">条/页</button>
-				</div>
-				<div style="position: relative;top: -88px; left: 285px;">
-					<nav>
-						<ul class="pagination">
-							<li class="disabled"><a href="#">首页</a></li>
-							<li class="disabled"><a href="#">上一页</a></li>
-							<li class="active"><a href="#">1</a></li>
-							<li><a href="#">2</a></li>
-							<li><a href="#">3</a></li>
-							<li><a href="#">4</a></li>
-							<li><a href="#">5</a></li>
-							<li><a href="#">下一页</a></li>
-							<li class="disabled"><a href="#">末页</a></li>
-						</ul>
-					</nav>
+				<div id="activityPage">
 				</div>
 			</div>
 		</div>

@@ -32,4 +32,9 @@
   <select id="selectAllUsers" resultMap="BaseResultMap">
     <include refid="selectAllSql" />
   </select>
+
+  <select id="selectNameById" resultMap="BaseResultMap">
+    select name from t_user
+    <where>id = #{id}</where>
+  </select>
 </mapper>

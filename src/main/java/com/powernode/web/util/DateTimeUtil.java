@@ -17,7 +17,7 @@ public class DateTimeUtil {
      *   @return 返回当前时间
      */
     public static String generateNowTime() {
-        return String.format(DATE_FORMAT, new Date());
+        return String.format(TIME_FORMAT, new Date());
     }
 
     /**
@@ -27,7 +27,7 @@ public class DateTimeUtil {
      * @return 返回当前日期
      */
     public static String generateNowDate() {
-        return String.format(TIME_FORMAT, new Date());
+        return String.format(DATE_FORMAT, new Date());
     }
 
     /**

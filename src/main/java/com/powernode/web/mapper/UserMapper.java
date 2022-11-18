@@ -9,4 +9,6 @@ public interface UserMapper {
     User logIn(Map<String, String> params);
 
     List<User> selectAllUsers();
+
+    String selectNameById(String id);
 }

@@ -20,4 +20,23 @@
     insert into t_activity
     values(#{id}, #{owner}, #{name}, #{startDate}, #{endDate}, #{cost}, #{description}, #{createTime}, #{createBy}, NULL, NULL)
   </insert>
+  <select id="selectActivitiesByPage" resultMap="BaseResultMap">
+    select
+        <!--改名owner是为了注入，他是拥有者的真实姓名，act.name是活动的名称-->
+        act.id, user.name 'owner', act.name, act.startDate, act.endDate, act.cost, act.description, act.createTime, act.createBy, act.editTime, act.editBy
+    from t_activity act
+    join t_user user
+    on act.owner=user.id
+    <where>
+      <if test="activity.name != null and activity.name != ''">and act.name like CONCAT('%', #{activity.name}, '%') </if>
+      <if test="activity.owner != null and activity.owner != ''">and user.name like CONCAT('%', #{activity.owner}, '%') </if>
+      <if test="activity.startDate != null and activity.startDate != ''">and act.startDate &gt; #{activity.startDate} </if>
+      <if test="activity.endDate != null and activity.endDate != ''">and act.endDate &lt; #{activity.endDate} </if>
+    </where>
+    order by act.createTime desc
+    limit ${pageNo}, ${pageSize}
+  </select>
+  <select id="selectActivitiesNums" resultType="int">
+    select count(*) from t_activity
+  </select>
 </mapper>

@@ -7,6 +7,7 @@ import com.powernode.web.service.ActivityService;
 import com.powernode.web.service.UserService;
 import com.powernode.web.util.DateTimeUtil;
 import com.powernode.web.util.UUIDUtil;
+import com.powernode.web.vo.PageInfo;
 import jakarta.annotation.Resource;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
@@ -65,5 +66,11 @@ public class WorkbenchAction {
         HashMap<String, Boolean> map = new HashMap<>();
         map.put("success", activityService.saveActivity(activity));
         return map;
+    }
+
+    @ResponseBody
+    @RequestMapping("/activity/activitiesList")
+    public PageInfo<Activity> activitiesList(Integer pageNo, Integer pageSize, Activity activity) {
+        return activityService.showActivitiesInPageInfo(pageSize * (pageNo - 1), pageSize, activity);
     }
 }
