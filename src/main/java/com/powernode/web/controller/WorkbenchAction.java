@@ -1,6 +1,8 @@
 package com.powernode.web.controller;
 
 import com.powernode.web.domain.Activity;
+import com.powernode.web.domain.ActivityRemark;
+import com.powernode.web.domain.AnonymousStructure;
 import com.powernode.web.domain.User;
 import com.powernode.web.service.ActivityRemarkService;
 import com.powernode.web.service.ActivityService;
@@ -13,9 +15,9 @@ import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -51,26 +53,40 @@ public class WorkbenchAction {
         return "workbench/activity/index";
     }
 
-    @RequestMapping("/activity/getUserList")
     @ResponseBody
+    @RequestMapping("/activity/getUserList")
     public List<User> activityUserList() {
         return userService.getAllUsers();
     }
 
-    @RequestMapping(value = "/activity/createMarkActivity", method = RequestMethod.POST)
     @ResponseBody
-    public Map<String, Boolean> activityCreateMarkActivity(HttpSession session, Activity activity) {
+    @RequestMapping(value = "/activity/createMarkActivity", method = RequestMethod.POST)
+    public AnonymousStructure activityCreateMarkActivity(HttpSession session, Activity activity) {
         activity.setId(UUIDUtil.generateUUID());
         activity.setCreateTime(DateTimeUtil.generateNowTime());
         activity.setCreateBy(((User) session.getAttribute("user")).getName());
-        HashMap<String, Boolean> map = new HashMap<>();
-        map.put("success", activityService.saveActivity(activity));
-        return map;
+        return new AnonymousStructure() {
+            public boolean getSuccess() { return activityService.saveActivity(activity); }
+        };
     }
 
     @ResponseBody
     @RequestMapping("/activity/activitiesList")
     public PageInfo<Activity> activitiesList(Integer pageNo, Integer pageSize, Activity activity) {
         return activityService.showActivitiesInPageInfo(pageSize * (pageNo - 1), pageSize, activity);
+    }
+
+    @ResponseBody
+    @RequestMapping("/activity/deleteMarkActivity")
+    public AnonymousStructure activityDeleteMarkActivity(@RequestParam("id") List<String> aids) {
+        return new AnonymousStructure() {
+            public boolean getSuccess() { return activityService.deleteActivity(aids); }
+        };
+    }
+
+    @ResponseBody
+    @RequestMapping("/activity/before/update_list_activity")
+    public Map<String, Object> activityBeforeUpdate_list_activity(String id) {
+        return activityService.showActivityWithDetailById(id);
     }
 }

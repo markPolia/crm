@@ -47,4 +47,14 @@
       <if test="activity.endDate != null and activity.endDate != ''">and act.endDate &lt; #{activity.endDate} </if>
     </where>
   </select>
+  <delete id="deleteByIds" parameterType="list">
+    delete from t_activity where id = '-' or id in<foreach collection="ids" item="id" open="(" close=")" separator=",">#{id}</foreach>
+  </delete>
+  <select id="selectByAid" resultMap="BaseResultMap" resultType="Activity">
+    select
+    act.id, user.name 'owner', act.name, act.startDate, act.endDate, act.cost, act.description, act.createTime, act.createBy, act.editTime, act.editBy
+    from t_activity act
+    join t_user user
+    on act.id = #{id} and act.owner=user.id
+  </select>
 </mapper>

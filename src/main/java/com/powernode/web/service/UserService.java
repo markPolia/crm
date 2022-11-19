@@ -21,4 +21,6 @@ public interface UserService {
      * @return 用户列表
      */
     List<User> getAllUsers();
+
+    List<User> getAllUsersNames();
 }

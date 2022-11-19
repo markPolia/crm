@@ -37,4 +37,8 @@
     select name from t_user
     <where>id = #{id}</where>
   </select>
+
+  <select id="selectAllUsersNames" resultType="user">
+    select id, name from t_user
+  </select>
 </mapper>

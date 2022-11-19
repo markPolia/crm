@@ -1,16 +1,11 @@
 package com.powernode.web.mapper;
 
-import com.powernode.web.domain.ActivityRemark;
+import org.apache.ibatis.annotations.Param;
+
 import java.util.List;
 
 public interface ActivityRemarkMapper {
-    int deleteByPrimaryKey(String id);
+    long selectCountByActivityIds(@Param("aids") List<String> aids);
 
-    int insert(ActivityRemark row);
-
-    ActivityRemark selectByPrimaryKey(String id);
-
-    List<ActivityRemark> selectAll();
-
-    int updateByPrimaryKey(ActivityRemark row);
+    long deleteByActivityIds(@Param("aids") List<String> aids);
 }

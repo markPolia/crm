@@ -16,4 +16,8 @@ public interface ActivityMapper {
      * @return 总记录条数
      */
     Integer selectActivitiesNums(@Param("activity") Activity activity);
+
+    long deleteByIds(@Param("ids") List<String> ids);
+
+    Activity selectByAid(@Param("id") String id);
 }

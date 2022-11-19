@@ -2,16 +2,16 @@ package com.powernode.web.domain;
 
 public class ActivityRemark {
     private String id;
-    private String notecontent;
-    private String createtime;
-    private String createby;
-    private String edittime;
-    private String editby;
+    private String noteContent;
+    private String createTime;
+    private String createBy;
+    private String editTime;
+    private String editBy;
     /**
      *   修改标记
      */
-    private String editflag;
-    private String activityid;
+    private String editFlag;
+    private String activityId;
 
     public String getId() {
         return id;
@@ -21,59 +21,59 @@ public class ActivityRemark {
         this.id = id == null ? null : id.trim();
     }
 
-    public String getNotecontent() {
-        return notecontent;
+    public String getNoteContent() {
+        return noteContent;
     }
 
-    public void setNotecontent(String notecontent) {
-        this.notecontent = notecontent == null ? null : notecontent.trim();
+    public void setNoteContent(String noteContent) {
+        this.noteContent = noteContent == null ? null : noteContent.trim();
     }
 
-    public String getCreatetime() {
-        return createtime;
+    public String getCreateTime() {
+        return createTime;
     }
 
-    public void setCreatetime(String createtime) {
-        this.createtime = createtime == null ? null : createtime.trim();
+    public void setCreateTime(String createTime) {
+        this.createTime = createTime == null ? null : createTime.trim();
     }
 
-    public String getCreateby() {
-        return createby;
+    public String getCreateBy() {
+        return createBy;
     }
 
-    public void setCreateby(String createby) {
-        this.createby = createby == null ? null : createby.trim();
+    public void setCreateBy(String createBy) {
+        this.createBy = createBy == null ? null : createBy.trim();
     }
 
-    public String getEdittime() {
-        return edittime;
+    public String getEditTime() {
+        return editTime;
     }
 
-    public void setEdittime(String edittime) {
-        this.edittime = edittime == null ? null : edittime.trim();
+    public void setEditTime(String editTime) {
+        this.editTime = editTime == null ? null : editTime.trim();
     }
 
-    public String getEditby() {
-        return editby;
+    public String getEditBy() {
+        return editBy;
     }
 
-    public void setEditby(String editby) {
-        this.editby = editby == null ? null : editby.trim();
+    public void setEditBy(String editBy) {
+        this.editBy = editBy == null ? null : editBy.trim();
     }
 
-    public String getEditflag() {
-        return editflag;
+    public String getEditFlag() {
+        return editFlag;
     }
 
-    public void setEditflag(String editflag) {
-        this.editflag = editflag == null ? null : editflag.trim();
+    public void setEditFlag(String editFlag) {
+        this.editFlag = editFlag == null ? null : editFlag.trim();
     }
 
-    public String getActivityid() {
-        return activityid;
+    public String getActivityId() {
+        return activityId;
     }
 
-    public void setActivityid(String activityid) {
-        this.activityid = activityid == null ? null : activityid.trim();
+    public void setActivityId(String activityId) {
+        this.activityId = activityId == null ? null : activityId.trim();
     }
 }
