@@ -103,8 +103,9 @@
 		$(function() {
 			// 展示市场活动列表
 			pageList(1, 2);
+			// 查询
 			$('#search-bth').click(function () {
-				pageList(1, 2);
+				pageList(1 ,$("#activityPage").bs_pagination('getOption', 'rowsPerPage'));
 			});
 			// 创建打开添加模态按钮
 			$('#createModalBtn').click(function () {
@@ -135,14 +136,41 @@
 				$('#createActivityModal').modal('show');
 			});
 
+			// 更新市场活动操作
 			$('#update-btn').click(function () {
-				$('#editActivityModal').modal('hidden');
+				$('#editActivityModal').modal('hide');
 				$.ajax({
-
+					url : '${contextPath}/workbench/activity/updateMarkActivity',
+					data : {
+						'id' : $.trim($('#edit-aid').val()),					/* aid      */
+						'owner' : $.trim($('#edit-marketActivityOwner').val()), /* 所有者   */
+						'name' : $.trim($('#edit-marketActivityName').val()),   /* 名称     */
+						'startDate' : $.trim($('#edit-startTime').val()), 	    /* 开始日期 */
+						'endDate' : $.trim($('#edit-endTime').val()),           /* 结束日期 */
+						'cost' : $.trim($('#edit-cost').val()),                 /* 成本     */
+						'description' : $.trim($('#edit-description').val())    /* 描述     */
+					},
+					dataType : 'JSON',
+					type : 'POST',
+					async : true,
+					success : function (jsonStr) {
+						if (eval(jsonStr).success) {
+							// 更新成功
+							// 关闭
+							$('#createActivityModal').modal('hide');
+							// 局部刷新市场活动列表
+							let $activityPage = $("#activityPage");
+							pageList($activityPage.bs_pagination('getOption', 'currentPage'),
+									$activityPage.bs_pagination('getOption', 'rowsPerPage'));
+						} else {
+							// 更新失败
+							alert('更新失败');
+						}
+					}
 				});
 			});
 
-			// 创建打开修改模态按钮
+			// 创建打开修改模态按钮时的事件
 			$('#editModalBtn').click(function () {
 				let $check_one = $('input[name=check-one]:checked');
 				if ($check_one.length === 1) {
@@ -157,22 +185,26 @@
 						async : true,
 						success : function (data) {
 							// userList[] : name , activity : value
-							// todo 默认是最初的所有者
 							// 处理用户列表
 							let option_html = '';
 							let json_data = eval(data);
 							$.each(json_data.userList, function (index, user) {
-								option_html += '<option value=\'' + user.id + '\'>' + user.name + '</option>';
+								if (data.activity.owner === user.name) {
+									option_html += '<option value=\'' + user.id + '\' selected>' + user.name + '</option>';
+								} else {
+									option_html += '<option value=\'' + user.id + '\'>' + user.name + '</option>';
+								}
 							});
-							console.log(json_data);
 							$('#edit-marketActivityOwner').html(option_html);
 							// 处理activity数据
-							$('#edit-marketActivityName').val(data.activity.name)
-							$('#edit-startTime').val(data.activity.startDate)
-							$('#edit-endTime').val(data.activity.endDate)
-							$('#edit-cost').val(data.activity.cost)
-							$('#edit-description').val(data.activity.description)
-							$('#edit-aid').val(data.activity.id)
+							$('#edit-marketActivityName').val(data.activity.name);
+							$('#edit-startTime').val(data.activity.startDate);
+							$('#edit-endTime').val(data.activity.endDate);
+							$('#edit-cost').val(data.activity.cost);
+							$('#edit-description').val(data.activity.description);
+							$('#edit-aid').val(data.activity.id);
+							// 刷新
+							pageList(1 ,$("#activityPage").bs_pagination('getOption', 'rowsPerPage'));
 						}
 					});
 				} else if($check_one.length === 0) {
@@ -180,7 +212,6 @@
 				} else if ($check_one.length >= 2) {
 					alert('一次只能更改一个对象');
 				} else {
-					// todo
 					alert('wrong');
 				}
 			});
@@ -202,13 +233,18 @@
 					async : true,
 					success : function (jsonStr) {
 						if (eval(jsonStr).success) {
+							/*
+								currentPage 操作后停留在当前页
+								rowsPerPage 操作后维持已经设置好的每页展示的记录数
+							*/
 							// 添加成功
 							// 关闭
 							$('#createActivityModal').modal('hide');
 							// 清空表单
 							$('#saveActivityForm')[0].reset();
 							// 局部刷新市场活动列表
-							pageList(1, 2);
+							let $activityPage = $("#activityPage");
+							pageList(1 ,$activityPage.bs_pagination('getOption', 'rowsPerPage'));
 						} else {
 							// 添加失败
 							alert('添加失败');
@@ -229,6 +265,7 @@
 				 $('#check-all-box').prop("checked", $('input[name=check-one]').length === $('input[name=check-one]:checked').length);
 			});
 
+			// 删除市场活动操作
 			$('#deleteActivityBtn').click(function () {
 				let $select = $('input[name=check-one]:checked');
 				if ($select.length === 0) {
@@ -248,7 +285,7 @@
 							data : params,
 							success : function (jsonStr) {
 								if (eval(jsonStr).success) {
-									pageList(1, 2);
+									pageList(1 ,$("#activityPage").bs_pagination('getOption', 'rowsPerPage'));
 									alert('删除成功');
 								} else {
 									alert('未知错误，删除失败！');

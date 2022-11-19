@@ -16,9 +16,9 @@
   </resultMap>
   <sql id="selectAll">select id, owner, name, startDate, endDate, cost, description, createTime, createBy, editTime, editBy from t_activity</sql>
 
-  <insert id="updateActivity" parameterType="Activity">
+  <insert id="saveActivity" parameterType="Activity">
     insert into t_activity
-    values(#{id}, #{owner}, #{name}, #{startDate}, #{endDate}, #{cost}, #{description}, #{createTime}, #{createBy}, NULL, NULL)
+    values(#{id}, #{owner}, #{name}, #{startDate}, #{endDate}, #{cost}, #{description}, #{createTime}, #{createBy}, #{editTime}, #{editBy})
   </insert>
   <select id="selectActivitiesByPage" resultMap="BaseResultMap">
     select
@@ -57,4 +57,10 @@
     join t_user user
     on act.id = #{id} and act.owner=user.id
   </select>
+  <update id="updateActivity" parameterType="activity">
+    update t_activity
+    set owner = #{owner}, name = #{name}, startDate = #{startDate}, endDate = #{endDate}, cost = #{cost}, description = #{description},
+    editTime = #{editTime}, editBy = #{editBy}
+    where id = #{id}
+  </update>
 </mapper>

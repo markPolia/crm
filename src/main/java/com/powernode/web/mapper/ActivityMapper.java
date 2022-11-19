@@ -6,7 +6,7 @@ import org.apache.ibatis.annotations.Param;
 import java.util.List;
 
 public interface ActivityMapper {
-    int updateActivity(Activity activity);
+    int saveActivity(Activity activity);
 
     List<Activity> selectActivitiesByPage(@Param("pageNo") Integer pageNo, @Param("pageSize") Integer pageSize,
                                           @Param("activity") Activity activity);
@@ -20,4 +20,6 @@ public interface ActivityMapper {
     long deleteByIds(@Param("ids") List<String> ids);
 
     Activity selectByAid(@Param("id") String id);
+
+    int updateActivity(Activity activity);
 }

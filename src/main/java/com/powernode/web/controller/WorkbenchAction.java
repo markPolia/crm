@@ -1,7 +1,6 @@
 package com.powernode.web.controller;
 
 import com.powernode.web.domain.Activity;
-import com.powernode.web.domain.ActivityRemark;
 import com.powernode.web.domain.AnonymousStructure;
 import com.powernode.web.domain.User;
 import com.powernode.web.service.ActivityRemarkService;
@@ -88,5 +87,17 @@ public class WorkbenchAction {
     @RequestMapping("/activity/before/update_list_activity")
     public Map<String, Object> activityBeforeUpdate_list_activity(String id) {
         return activityService.showActivityWithDetailById(id);
+    }
+
+    @ResponseBody
+    @RequestMapping("/activity/updateMarkActivity")
+    public AnonymousStructure activityUpdateMarkActivity(Activity activity, HttpSession session) {
+        activity.setEditTime(DateTimeUtil.generateNowTime());
+        activity.setEditBy(((User) session.getAttribute("user")).getName());
+        return new AnonymousStructure() {
+            public boolean getSuccess() {
+                return activityService.updateActivity(activity);
+            }
+        };
     }
 }

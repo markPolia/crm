@@ -28,7 +28,7 @@ public class ActivityServiceImpl implements ActivityService {
 
     @Override
     public boolean saveActivity(Activity activity) {
-        return activityMapper.updateActivity(activity) == 1;
+        return activityMapper.saveActivity(activity) == 1;
     }
 
     @Override
@@ -72,5 +72,10 @@ public class ActivityServiceImpl implements ActivityService {
         res.put("userList", userMapper.selectAllUsersNames());
         res.put("activity", activityMapper.selectByAid(id));
         return res;
+    }
+
+    @Override
+    public boolean updateActivity(Activity activity) {
+        return activityMapper.updateActivity(activity) == 1;
     }
 }

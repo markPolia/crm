@@ -1,8 +1,6 @@
 package com.powernode.web.service;
 
 import com.powernode.web.domain.Activity;
-import com.powernode.web.domain.AnonymousStructure;
-import com.powernode.web.domain.User;
 import com.powernode.web.vo.PageInfo;
 
 import java.util.List;
@@ -28,4 +26,6 @@ public interface ActivityService {
     boolean deleteActivity(List<String> ids);
 
     Map<String, Object> showActivityWithDetailById(String id);
+
+    boolean updateActivity(Activity activity);
 }
