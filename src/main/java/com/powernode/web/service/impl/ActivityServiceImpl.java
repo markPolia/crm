@@ -22,11 +22,11 @@ public class ActivityServiceImpl implements ActivityService {
     @Override
     public PageInfo<Activity> showActivitiesInPageInfo(Integer pageNo, Integer pageSize, Activity activity) {
         PageInfo<Activity> activityPageInfo = new PageInfo<>();
+        activityPageInfo.setDataList(mapper.selectActivitiesByPage(pageNo, pageSize, activity));
         // 总记录条数
-        final int total = mapper.selectActivitiesNums();
+        final int total = mapper.selectActivitiesNums(activity);
         // 页数
         final int pageNums = total % pageSize == 0 ? total / pageSize : (total / pageSize) + 1;
-        activityPageInfo.setDataList(mapper.selectActivitiesByPage(pageNo, pageSize, activity));
         activityPageInfo.setTotal(total);
         activityPageInfo.setPageSize(pageNums);
         return activityPageInfo;

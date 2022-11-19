@@ -15,5 +15,5 @@ public interface ActivityMapper {
      *  查询总记录条数
      * @return 总记录条数
      */
-    Integer selectActivitiesNums();
+    Integer selectActivitiesNums(@Param("activity") Activity activity);
 }

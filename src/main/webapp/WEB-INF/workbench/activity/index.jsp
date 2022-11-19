@@ -18,7 +18,6 @@
 	<script type="text/javascript" charset="UTF-8" src="${contextPath}/jquery/bs_pagination/jquery.bs_pagination.min.js"></script>
 	<script type="text/javascript" charset="UTF-8" src="${contextPath}/jquery/bs_pagination/en.js"></script>
 	<script type="text/javascript">
-		// 导入乱码，直接贴前端了
 		;(function($){
 			$.fn.datetimepicker.dates['zh-CN'] = {
 				days: ["星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六", "星期日"],
@@ -33,18 +32,20 @@
 		}(jQuery));
 
 		function pageList(pageNo, pageSize) {
-			if (pageNo == null || pageNo < 1) pageNo = 1;
-			if (pageSize == null || pageSize < 1) pageSize = 2;
+			let $search_name = $('#search-name');
+			let $search_owner = $('#search-owner');
+			let $search_start_date = $('#search-start-date');
+			let $search_end_date = $('#search-end-date');
 			$.ajax({
 				url : '${contextPath}/workbench/activity/activitiesList',
 				type : 'GET',
 				data : {
 					pageNo : pageNo,
 					pageSize : pageSize,
-					name : $.trim($('#search_name').val()),
-					owner : $.trim($('#search_owner').val()),
-					startDate : $.trim($('#search_start_date').val()),
-					endDate : $.trim($('#search_end_date').val())
+					name : $search_name.val(),
+					owner : $search_owner.val(),
+					startDate : $search_start_date.val(),
+					endDate : $search_end_date.val()
 				},
 				async : true,
 				dataType : 'JSON',
@@ -61,7 +62,13 @@
 							'<td>' + activity.endDate + '</td>' +
 						'</tr>';
 					});
+					// 展示数据
 					$('#activitiesListTableBody').html(html);
+
+					$('#hidden-name').val($.trim($search_name.val()));
+					$('#hidden-owner').val($.trim($search_owner.val()));
+					$('#hidden-start-date').val($.trim($search_start_date.val()));
+					$('#hidden-end-date').val($.trim($search_end_date.val()));
 					/////////////////////////// 分页插件 //////////////////////////////
 					$("#activityPage").bs_pagination({
 						currentPage: pageNo, // 页码
@@ -78,6 +85,10 @@
 						showRowsDefaultInfo: true,
 
 						onChangePage : function(event, data){
+							$search_name.val($.trim($('#hidden-name').val()));
+							$search_owner.val($.trim($('#hidden-owner').val()));
+							$search_start_date.val($.trim($('#hidden-start-date').val()));
+							$search_end_date.val($.trim($('#hidden-end-date').val()));
 							pageList(data.currentPage , data.rowsPerPage);
 						}
 					});
@@ -93,7 +104,6 @@
 			$('#search-bth').click(function () {
 				pageList(1, 2);
 			});
-
 			// 创建打开添加模态按钮
 			$('#createModalBtn').click(function () {
 				$(".time").datetimepicker({
@@ -162,6 +172,11 @@
 	</script>
 </head>
 <body>
+	<input type="hidden" id="hidden-name" value=" "/>
+	<input type="hidden" id="hidden-owner" value=" "/>
+	<input type="hidden" id="hidden-start-date" value=" "/>
+	<input type="hidden" id="hidden-end-date" value=" "/>
+	
 	<!-- 创建市场活动的模态窗口 -->
 	<div class="modal fade" id="createActivityModal" role="dialog">
 		<div class="modal-dialog" role="document" style="width: 85%;">
@@ -290,25 +305,25 @@
 				  <div class="form-group">
 				    <div class="input-group">
 				      <div class="input-group-addon">名称</div>
-				      <input class="form-control" type="text" id="search_name">
+				      <input class="form-control" type="text" id="search-name">
 				    </div>
 				  </div>
 				  <div class="form-group">
 				    <div class="input-group">
 				      <div class="input-group-addon">所有者</div>
-				      <input class="form-control" type="text" id="search_owner">
+				      <input class="form-control" type="text" id="search-owner">
 				    </div>
 				  </div>
 				  <div class="form-group">
 				    <div class="input-group">
 				      <div class="input-group-addon">开始日期</div>
-					  <input class="form-control" type="text" id="search_start_date"/>
+					  <input class="form-control" type="text" id="search-start-date"/>
 				    </div>
 				  </div>
 				  <div class="form-group">
 				    <div class="input-group">
 				      <div class="input-group-addon">结束日期</div>
-					  <input class="form-control" type="text" id="search_end_date">
+					  <input class="form-control" type="text" id="search-end-date">
 				    </div>
 				  </div>
 				  <button type="button" class="btn btn-default" id="search-bth">查询</button>

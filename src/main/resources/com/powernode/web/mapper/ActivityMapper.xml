@@ -37,6 +37,14 @@
     limit ${pageNo}, ${pageSize}
   </select>
   <select id="selectActivitiesNums" resultType="int">
-    select count(*) from t_activity
+    select count(*) from t_activity act
+    join t_user user
+    on act.owner=user.id
+    <where>
+      <if test="activity.name != null and activity.name != ''">and act.name like CONCAT('%', #{activity.name}, '%') </if>
+      <if test="activity.owner != null and activity.owner != ''">and user.name like CONCAT('%', #{activity.owner}, '%') </if>
+      <if test="activity.startDate != null and activity.startDate != ''">and act.startDate &gt; #{activity.startDate} </if>
+      <if test="activity.endDate != null and activity.endDate != ''">and act.endDate &lt; #{activity.endDate} </if>
+    </where>
   </select>
 </mapper>
