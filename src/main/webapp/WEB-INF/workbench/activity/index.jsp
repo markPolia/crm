@@ -1,8 +1,8 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ page isELIgnored="false" %>
-<%pageContext.setAttribute("base", request.getScheme() + "://" + request.getServerName()
+<% pageContext.setAttribute("base", request.getScheme() + "://" + request.getServerName()
 		+ ":" + request.getServerPort() + request.getContextPath() + "/");
-		pageContext.setAttribute("contextPath", request.getContextPath());%>
+	pageContext.setAttribute("contextPath", request.getContextPath());%>
 
 <!DOCTYPE html>
 <html>
@@ -58,7 +58,11 @@
 						html +=
 						'<tr class="active">' +
 							'<td><input type="checkbox" name="check-one" value="' + activity.id + '"/></td>' +
-							'<td><a style="text-decoration: none; cursor: pointer;" onclick="window.location.href=\'detail\';">' + activity.name + '</a></td>' +
+							'<td>' +
+								'<a style="text-decoration: none; cursor: pointer;" onclick="location.href=\'detail?id=' + activity.id + '\';">'
+									+ activity.name +
+								'</a>' +
+							'</td>' +
 							'<td>' + activity.owner + '</td>' +
 							'<td>' + activity.startDate + '</td>' +
 							'<td>' + activity.endDate + '</td>' +

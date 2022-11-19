@@ -1,9 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ page isELIgnored="false" %>
-<%
-	pageContext.setAttribute("base", request.getScheme() + "://"
-			+ request.getServerName() + ":" + request.getServerPort()
-			+ request.getContextPath() + "/");
+<% pageContext.setAttribute("base", request.getScheme() + "://" + request.getServerName()
+		+ ":" + request.getServerPort() + request.getContextPath() + "/");
 	pageContext.setAttribute("contextPath", request.getContextPath());%>
 
 <!DOCTYPE html>
@@ -19,6 +17,8 @@
 		//默认情况下取消和保存按钮是隐藏的
 		let cancelAndSaveBtnDefault = true;
 		$(function(){
+			console.log(${requestScope.uid});
+			console.log(${requestScope.aid});
 			$("#remark").focus(function(){
 				if(cancelAndSaveBtnDefault){
 					//设置remarkDiv的高度为130px
@@ -107,39 +107,39 @@
                             <label for="edit-marketActivityOwner" class="col-sm-2 control-label">所有者<span style="font-size: 15px; color: red;">*</span></label>
                             <div class="col-sm-10" style="width: 300px;">
                                 <select class="form-control" id="edit-marketActivityOwner">
-                                    <option>zhangsan</option>
+                                    <option selected>${requestScope.uname}</option>
                                     <option>lisi</option>
                                     <option>wangwu</option>
                                 </select>
                             </div>
                             <label for="edit-marketActivityName" class="col-sm-2 control-label">名称<span style="font-size: 15px; color: red;">*</span></label>
                             <div class="col-sm-10" style="width: 300px;">
-                                <input type="text" class="form-control" id="edit-marketActivityName" value="发传单">
+                                <input type="text" class="form-control" id="edit-marketActivityName" value="${requestScope.name}">
                             </div>
                         </div>
 
                         <div class="form-group">
                             <label for="edit-startTime" class="col-sm-2 control-label">开始日期</label>
                             <div class="col-sm-10" style="width: 300px;">
-                                <input type="text" class="form-control" id="edit-startTime" value="2020-10-10">
+                                <input type="text" class="form-control" id="edit-startTime" value="${requestScope.startDate}">
                             </div>
                             <label for="edit-endTime" class="col-sm-2 control-label">结束日期</label>
                             <div class="col-sm-10" style="width: 300px;">
-                                <input type="text" class="form-control" id="edit-endTime" value="2020-10-20">
+                                <input type="text" class="form-control" id="edit-endTime" value="${requestScope.endDate}">
                             </div>
                         </div>
 
                         <div class="form-group">
                             <label for="edit-cost" class="col-sm-2 control-label">成本</label>
                             <div class="col-sm-10" style="width: 300px;">
-                                <input type="text" class="form-control" id="edit-cost" value="5,000">
+                                <input type="text" class="form-control" id="edit-cost" value="${requestScope.cost}">
                             </div>
                         </div>
 
                         <div class="form-group">
                             <label for="edit-describe" class="col-sm-2 control-label">描述</label>
                             <div class="col-sm-10" style="width: 81%;">
-                                <textarea class="form-control" rows="3" id="edit-describe">市场活动Marketing，是指品牌主办或参与的展览会议与公关市场活动，包括自行主办的各类研讨会、客户交流会、演示会、新产品发布会、体验会、答谢会、年会和出席参加并布展或演讲的展览会、研讨会、行业交流会、颁奖典礼等</textarea>
+                                <textarea class="form-control" rows="3" id="edit-describe">${requestScope.descript}</textarea>
                             </div>
                         </div>
 
@@ -174,41 +174,41 @@
 	<div style="position: relative; top: -70px;">
 		<div style="position: relative; left: 40px; height: 30px;">
 			<div style="width: 300px; color: gray;">所有者</div>
-			<div style="width: 300px;position: relative; left: 200px; top: -20px;"><b>zhangsan</b></div>
+			<div style="width: 300px;position: relative; left: 200px; top: -20px;"><b>${requestScope.uname}</b></div>
 			<div style="width: 300px;position: relative; left: 450px; top: -40px; color: gray;">名称</div>
-			<div style="width: 300px;position: relative; left: 650px; top: -60px;"><b>发传单</b></div>
+			<div style="width: 300px;position: relative; left: 650px; top: -60px;"><b>${requestScope.name}</b></div>
 			<div style="height: 1px; width: 400px; background: #D5D5D5; position: relative; top: -60px;"></div>
 			<div style="height: 1px; width: 400px; background: #D5D5D5; position: relative; top: -60px; left: 450px;"></div>
 		</div>
 
 		<div style="position: relative; left: 40px; height: 30px; top: 10px;">
 			<div style="width: 300px; color: gray;">开始日期</div>
-			<div style="width: 300px;position: relative; left: 200px; top: -20px;"><b>2020-10-10</b></div>
+			<div style="width: 300px;position: relative; left: 200px; top: -20px;"><b>${requestScope.startDate}</b></div>
 			<div style="width: 300px;position: relative; left: 450px; top: -40px; color: gray;">结束日期</div>
-			<div style="width: 300px;position: relative; left: 650px; top: -60px;"><b>2020-10-20</b></div>
+			<div style="width: 300px;position: relative; left: 650px; top: -60px;"><b>${requestScope.endDate}</b></div>
 			<div style="height: 1px; width: 400px; background: #D5D5D5; position: relative; top: -60px;"></div>
 			<div style="height: 1px; width: 400px; background: #D5D5D5; position: relative; top: -60px; left: 450px;"></div>
 		</div>
 		<div style="position: relative; left: 40px; height: 30px; top: 20px;">
 			<div style="width: 300px; color: gray;">成本</div>
-			<div style="width: 300px;position: relative; left: 200px; top: -20px;"><b>4,000</b></div>
+			<div style="width: 300px;position: relative; left: 200px; top: -20px;"><b>${requestScope.cost}</b></div>
 			<div style="height: 1px; width: 400px; background: #D5D5D5; position: relative; top: -20px;"></div>
 		</div>
 		<div style="position: relative; left: 40px; height: 30px; top: 30px;">
 			<div style="width: 300px; color: gray;">创建者</div>
-			<div style="width: 500px;position: relative; left: 200px; top: -20px;"><b>zhangsan&nbsp;&nbsp;</b><small style="font-size: 10px; color: gray;">2017-01-18 10:10:10</small></div>
+			<div style="width: 500px;position: relative; left: 200px; top: -20px;"><b>${requestScope.createBy}&nbsp;&nbsp;</b><small style="font-size: 10px; color: gray;">2017-01-18 10:10:10</small></div>
 			<div style="height: 1px; width: 550px; background: #D5D5D5; position: relative; top: -20px;"></div>
 		</div>
 		<div style="position: relative; left: 40px; height: 30px; top: 40px;">
 			<div style="width: 300px; color: gray;">修改者</div>
-			<div style="width: 500px;position: relative; left: 200px; top: -20px;"><b>zhangsan&nbsp;&nbsp;</b><small style="font-size: 10px; color: gray;">2017-01-19 10:10:10</small></div>
+			<div style="width: 500px;position: relative; left: 200px; top: -20px;"><b>${requestScope.editBy}&nbsp;&nbsp;</b><small style="font-size: 10px; color: gray;">2017-01-19 10:10:10</small></div>
 			<div style="height: 1px; width: 550px; background: #D5D5D5; position: relative; top: -20px;"></div>
 		</div>
 		<div style="position: relative; left: 40px; height: 30px; top: 50px;">
 			<div style="width: 300px; color: gray;">描述</div>
 			<div style="width: 630px;position: relative; left: 200px; top: -20px;">
 				<b>
-					市场活动Marketing，是指品牌主办或参与的展览会议与公关市场活动，包括自行主办的各类研讨会、客户交流会、演示会、新产品发布会、体验会、答谢会、年会和出席参加并布展或演讲的展览会、研讨会、行业交流会、颁奖典礼等
+					${requestScope.descript}
 				</b>
 			</div>
 			<div style="height: 1px; width: 850px; background: #D5D5D5; position: relative; top: -20px;"></div>

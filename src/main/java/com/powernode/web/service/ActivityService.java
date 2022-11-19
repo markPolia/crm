@@ -28,4 +28,11 @@ public interface ActivityService {
     Map<String, Object> showActivityWithDetailById(String id);
 
     boolean updateActivity(Activity activity);
+
+    /**
+     *  查询活动的所有信息
+     * @param id 活动id
+     * @return 活动对象
+     */
+    Map<String, String> showActivityWithAllDetailsById(String id);
 }

@@ -10,6 +10,7 @@ import com.powernode.web.util.DateTimeUtil;
 import com.powernode.web.util.UUIDUtil;
 import com.powernode.web.vo.PageInfo;
 import jakarta.annotation.Resource;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -42,14 +44,15 @@ public class WorkbenchAction {
         return "workbench/main/index";
     }
 
-    @RequestMapping("/activity/detail")
-    public String activityDetail() {
-        return "workbench/activity/detail";
-    }
-
     @RequestMapping("/activity/index")
     public String activityIndex() {
         return "workbench/activity/index";
+    }
+
+    @RequestMapping("/activity/detail")
+    public String activityDetail(Map<String, String> param, String id) {
+        param.putAll(activityService.showActivityWithAllDetailsById(id));
+        return "workbench/activity/detail";
     }
 
     @ResponseBody

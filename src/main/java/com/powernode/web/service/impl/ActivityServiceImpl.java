@@ -78,4 +78,9 @@ public class ActivityServiceImpl implements ActivityService {
     public boolean updateActivity(Activity activity) {
         return activityMapper.updateActivity(activity) == 1;
     }
+
+    @Override
+    public Map<String, String> showActivityWithAllDetailsById(String id) {
+        return activityMapper.selectAllInfoByAid(id);
+    }
 }
