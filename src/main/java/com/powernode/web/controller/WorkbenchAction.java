@@ -1,6 +1,7 @@
 package com.powernode.web.controller;
 
 import com.powernode.web.domain.Activity;
+import com.powernode.web.domain.ActivityRemark;
 import com.powernode.web.domain.AnonymousStructure;
 import com.powernode.web.domain.User;
 import com.powernode.web.service.ActivityRemarkService;
@@ -10,7 +11,6 @@ import com.powernode.web.util.DateTimeUtil;
 import com.powernode.web.util.UUIDUtil;
 import com.powernode.web.vo.PageInfo;
 import jakarta.annotation.Resource;
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -100,6 +99,22 @@ public class WorkbenchAction {
         return new AnonymousStructure() {
             public boolean getSuccess() {
                 return activityService.updateActivity(activity);
+            }
+        };
+    }
+
+    @ResponseBody
+    @RequestMapping("/activity/showRemarkListByAid")
+    public List<ActivityRemark> activityShowRemarkListByAid(String activityId) {
+        return activityRemarkService.getActivityRemarksByAid(activityId);
+    }
+
+    @ResponseBody
+    @RequestMapping("/activity/deleteRemarkById")
+    public AnonymousStructure activityDeleteRemarkById(String activityRemarkId) {
+        return new AnonymousStructure() {
+            public boolean getSuccess() {
+                return activityRemarkService.deleteRemarkById(activityRemarkId);
             }
         };
     }

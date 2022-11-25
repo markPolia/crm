@@ -67,16 +67,12 @@
     select
         act.id 'aid', user.id 'uid',user.name 'uname',
             act.name, act.startDate, act.endDate, act.cost, act.description, act.createTime, act.createBy,
-            act.editTime, act.editBy, remark.editFlag, remark.noteContent
+            act.editTime, act.editBy
     from
         t_activity act
     join
         t_user user
     on
         act.id = #{id} and act.owner = user.id
-    left join
-        t_activity_remark remark
-    on
-        act.id = remark.activityId;
   </select>
 </mapper>
