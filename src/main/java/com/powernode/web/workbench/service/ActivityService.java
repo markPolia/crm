@@ -1,7 +1,7 @@
 package com.powernode.web.workbench.service;
 
 import com.powernode.web.workbench.domain.Activity;
-import com.powernode.web.workbench.vo.PageInfo;
+import com.powernode.web.vo.PageInfo;
 
 import java.util.List;
 import java.util.Map;

@@ -9,7 +9,7 @@ import com.powernode.web.workbench.service.ActivityService;
 import com.powernode.web.settings.service.UserService;
 import com.powernode.web.util.DateTimeUtil;
 import com.powernode.web.util.UUIDUtil;
-import com.powernode.web.workbench.vo.PageInfo;
+import com.powernode.web.vo.PageInfo;
 import jakarta.annotation.Resource;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;

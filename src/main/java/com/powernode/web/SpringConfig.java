@@ -43,8 +43,8 @@ public class SpringConfig {
     public static SqlSessionFactoryBean sqlSessionFactoryBean(DataSource dataSource,
                                                               @Value("classpath:mybatis-config.xml") Resource configLocation,
                                                               @Value("com.powernode.web.workbench.domain," +
-                                                                      "com.powernode.web.workbench.vo," +
-                                                                      "com.powernode.web.settings.domain") String aliasesPackage) {
+                                                                     "com.powernode.web.settings.domain," +
+                                                                     "com.powernode.web.vo") String aliasesPackage) {
         SqlSessionFactoryBean sqlSessionFactoryBean = new SqlSessionFactoryBean();
         sqlSessionFactoryBean.setTypeAliasesPackage(aliasesPackage);
         sqlSessionFactoryBean.setDataSource(dataSource);

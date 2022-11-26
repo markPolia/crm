@@ -5,7 +5,7 @@ import com.powernode.web.workbench.mapper.ActivityMapper;
 import com.powernode.web.workbench.mapper.ActivityRemarkMapper;
 import com.powernode.web.settings.mapper.UserMapper;
 import com.powernode.web.workbench.service.ActivityService;
-import com.powernode.web.workbench.vo.PageInfo;
+import com.powernode.web.vo.PageInfo;
 import jakarta.annotation.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

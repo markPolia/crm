@@ -1,4 +1,4 @@
-package com.powernode.web.workbench.vo;
+package com.powernode.web.vo;
 
 import org.springframework.stereotype.Component;
 
