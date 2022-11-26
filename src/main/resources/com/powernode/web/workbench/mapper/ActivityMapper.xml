@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.powernode.web.workbench.mapper.ActivityMapper">
+  <resultMap id="BaseResultMap" type="com.powernode.web.workbench.domain.Activity">
+    <id column="id" jdbcType="CHAR" property="id" />
+    <result column="owner" jdbcType="CHAR" property="owner" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="startDate" jdbcType="CHAR" property="startDate" />
+    <result column="endDate" jdbcType="CHAR" property="endDate" />
+    <result column="cost" jdbcType="VARCHAR" property="cost" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+    <result column="createTime" jdbcType="CHAR" property="createTime" />
+    <result column="createBy" jdbcType="VARCHAR" property="createBy" />
+    <result column="editTime" jdbcType="CHAR" property="editTime" />
+    <result column="editBy" jdbcType="VARCHAR" property="editBy" />
+  </resultMap>
+  <sql id="selectAll">select id, owner, name, startDate, endDate, cost, description, createTime, createBy, editTime, editBy from t_activity</sql>
+
+  <insert id="saveActivity" parameterType="Activity">
+    insert into t_activity
+    values(#{id}, #{owner}, #{name}, #{startDate}, #{endDate}, #{cost}, #{description}, #{createTime}, #{createBy}, #{editTime}, #{editBy})
+  </insert>
+  <select id="selectActivitiesByPage" resultMap="BaseResultMap">
+    select
+        <!--改名owner是为了注入，他是拥有者的真实姓名，act.name是活动的名称-->
+        act.id, user.name 'owner', act.name, act.startDate, act.endDate, act.cost, act.description, act.createTime, act.createBy, act.editTime, act.editBy
+    from t_activity act
+    join t_user user
+    on act.owner=user.id
+    <where>
+      <if test="activity.name != null and activity.name != ''">and act.name like CONCAT('%', #{activity.name}, '%') </if>
+      <if test="activity.owner != null and activity.owner != ''">and user.name like CONCAT('%', #{activity.owner}, '%') </if>
+      <if test="activity.startDate != null and activity.startDate != ''">and act.startDate &gt; #{activity.startDate} </if>
+      <if test="activity.endDate != null and activity.endDate != ''">and act.endDate &lt; #{activity.endDate} </if>
+    </where>
+    order by act.createTime desc
+    limit ${pageNo}, ${pageSize}
+  </select>
+  <select id="selectActivitiesNums" resultType="int">
+    select count(*) from t_activity act
+    join t_user user
+    on act.owner=user.id
+    <where>
+      <if test="activity.name != null and activity.name != ''">and act.name like CONCAT('%', #{activity.name}, '%') </if>
+      <if test="activity.owner != null and activity.owner != ''">and user.name like CONCAT('%', #{activity.owner}, '%') </if>
+      <if test="activity.startDate != null and activity.startDate != ''">and act.startDate &gt; #{activity.startDate} </if>
+      <if test="activity.endDate != null and activity.endDate != ''">and act.endDate &lt; #{activity.endDate} </if>
+    </where>
+  </select>
+  <delete id="deleteByIds" parameterType="list">
+    delete from t_activity where id = '-' or id in<foreach collection="ids" item="id" open="(" close=")" separator=",">#{id}</foreach>
+  </delete>
+  <select id="selectByAid" resultMap="BaseResultMap" resultType="Activity">
+    select
+    act.id, user.name 'owner', act.name, act.startDate, act.endDate, act.cost, act.description, act.createTime, act.createBy, act.editTime, act.editBy
+    from t_activity act
+    join t_user user
+    on act.id = #{id} and act.owner=user.id
+  </select>
+  <update id="updateActivity" parameterType="activity">
+    update t_activity
+    set owner = #{owner}, name = #{name}, startDate = #{startDate}, endDate = #{endDate}, cost = #{cost}, description = #{description},
+    editTime = #{editTime}, editBy = #{editBy}
+    where id = #{id}
+  </update>
+  <select id="selectAllInfoByAid" resultType="map">
+    select
+        act.id 'aid', user.id 'uid',user.name 'uname',
+            act.name, act.startDate, act.endDate, act.cost, act.description, act.createTime, act.createBy,
+            act.editTime, act.editBy
+    from
+        t_activity act
+    join
+        t_user user
+    on
+        act.id = #{id} and act.owner = user.id
+  </select>
+</mapper>

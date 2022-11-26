@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.powernode.web.settings.mapper.UserMapper">
+  <resultMap id="BaseResultMap" type="com.powernode.web.settings.domain.User">
+    <id column="id" jdbcType="CHAR" property="id" />
+    <result column="loginAct" jdbcType="VARCHAR" property="loginAct" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="loginPwd" jdbcType="VARCHAR" property="loginPwd" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="expireTime" jdbcType="CHAR" property="expireTime" />
+    <result column="lockState" jdbcType="CHAR" property="lockState" />
+    <result column="deptNo" jdbcType="CHAR" property="deptNo" />
+    <result column="allowIps" jdbcType="VARCHAR" property="allowIps" />
+    <result column="createTime" jdbcType="CHAR" property="createTime" />
+    <result column="createBy" jdbcType="VARCHAR" property="createBy" />
+    <result column="editTime" jdbcType="CHAR" property="editTime" />
+    <result column="editBy" jdbcType="VARCHAR" property="editBy" />
+  </resultMap>
+  <sql id="selectAllSql">
+    select id, loginAct, name, loginPwd, email, expireTime, lockState, deptNo, allowIps, createTime, createBy, editTime, editBy
+    from t_user
+  </sql>
+
+  <select id="logIn" parameterType="java.util.Map" resultMap="BaseResultMap">
+    <include refid="selectAllSql" />
+    <where>
+        loginAct = #{loginAct}
+        and loginPwd = #{loginPwd}
+    </where>
+  </select>
+  
+  <select id="selectAllUsers" resultMap="BaseResultMap">
+    <include refid="selectAllSql" />
+  </select>
+
+  <select id="selectNameById" resultMap="BaseResultMap">
+    select name from t_user
+    <where>id = #{id}</where>
+  </select>
+
+  <select id="selectAllUsersNames" resultType="user">
+    select id, name from t_user
+  </select>
+</mapper>

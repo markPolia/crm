@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.powernode.web.workbench.mapper.ActivityRemarkMapper">
+  <resultMap id="BaseResultMap" type="com.powernode.web.workbench.domain.ActivityRemark">
+    <id column="id" jdbcType="CHAR" property="id" />
+    <result column="noteContent" jdbcType="VARCHAR" property="noteContent" />
+    <result column="createTime" jdbcType="CHAR" property="createTime" />
+    <result column="createBy" jdbcType="VARCHAR" property="createBy" />
+    <result column="editTime" jdbcType="CHAR" property="editTime" />
+    <result column="editBy" jdbcType="VARCHAR" property="editBy" />
+    <result column="editFlag" jdbcType="CHAR" property="editFlag" />
+    <result column="activityId" jdbcType="CHAR" property="activityId" />
+  </resultMap>
+  <sql id="selectAll">select id, noteContent, createTime, createBy, editTime, editBy, editFlag, activityId from t_activity_remark</sql>
+
+  <select id="selectCountByActivityIds" resultType="_long">
+    select count(*) from t_activity_remark
+    <where>
+      activityId in <foreach collection="aids" item="aid" separator="," open="(" close=")">#{aid}</foreach>
+    </where>
+  </select>
+
+  <select id="selectActivityRemarksByAid" resultMap="BaseResultMap">
+    select id, noteContent, createTime, createBy, editTime, editBy, editFlag, activityId from t_activity_remark
+    <where>activityId = #{activityId}</where>
+  </select>
+
+  <delete id="deleteByActivityIds" parameterType="list">
+    delete from t_activity_remark where activityId = '-' or activityId in<foreach collection="aids" separator="," open="(" close=")" item="aid">#{aid}</foreach>
+  </delete>
+
+  <delete id="deleteByRemarkId" parameterType="string">
+    delete from t_activity_remark where id = #{activityId}
+  </delete>
+
+  <insert id="insert" parameterType="activityRemark">
+    insert into t_activity_remark values(#{id}, #{noteContent}, #{createTime}, #{createBy}, #{editTime}, #{editBy}, #{editFlag}, #{activityId})
+  </insert>
+
+  <update id="updateRemark" parameterType="activityRemark">
+    update t_activity_remark
+    <set>
+        <if test="noteContent != null and noteContent != ''">noteContent = #{noteContent},</if>
+        <if test="createTime != null and createTime != ''">createTime = #{createTime},</if>
+        <if test="createBy != null and createBy != ''">createBy = #{createBy},</if>
+        <if test="activityId != null and activityId != ''">activityId = #{activityId},</if>
+        <if test="editTime != null and editTime != ''">editTime = #{editTime},</if>
+        <if test="editBy != null and editBy != ''">editBy = #{editBy},</if>
+        <if test="editFlag != null and editFlag != ''">editFlag = #{editFlag}</if>
+    </set>
+    where id = #{id}
+  </update>
+</mapper>

@@ -34,8 +34,26 @@
             <property name="enableSubPackages" value="true"/>
         </javaClientGenerator>
 
-        <table tableName="t_activity" domainObjectName="Activity"/>
-        <table tableName="t_activity_remark" domainObjectName="ActivityRemark"/>
+        <!--<table tableName="t_activity" domainObjectName="Activity"/>-->
+        <!--<table tableName="t_activity_remark" domainObjectName="ActivityRemark"/>-->
+
+        <!--<table tableName="t_clue" domainObjectName="Clue" />
+        <table tableName="t_clue_activity_relation" domainObjectName="ClueActivityRelation" />
+        <table tableName="t_clue_remark" domainObjectName="ClueRemark" />
+
+        <table tableName="t_contacts" domainObjectName="Contacts" />
+        <table tableName="t_contacts_activity_relation" domainObjectName="ContactsActivityRelation" />
+        <table tableName="t_contacts_remark" domainObjectName="ContactsRemark" />
+
+        <table tableName="t_customer" domainObjectName="Customer" />
+        <table tableName="t_customer_remark" domainObjectName="CustomerRemark" />
+
+        <table tableName="t_tran" domainObjectName="Tran" />
+        <table tableName="t_tran_history" domainObjectName="TranHistory" />
+        <table tableName="t_tran_remark" domainObjectName="TranHistoryRemark" />-->
+
+        <table tableName="t_dic_type" domainObjectName="DicType" />
+        <table tableName="t_dic_value" domainObjectName="DicValue" />
 
     </context>
 </generatorConfiguration>

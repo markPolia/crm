@@ -1,7 +1,7 @@
 package com.powermode.web;
 
 import com.powernode.web.SpringConfig;
-import com.powernode.web.domain.ActivityRemark;
+import com.powernode.web.workbench.domain.ActivityRemark;
 import com.powernode.web.domain.AnonymousStructure;
 import com.powernode.web.util.DateTimeUtil;
 import com.powernode.web.util.MD5Util;

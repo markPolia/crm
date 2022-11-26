@@ -24,7 +24,7 @@
         <mvc:interceptor>
             <mvc:mapping path="/workbench/**"/>
             <mvc:exclude-mapping path="/login" />
-            <bean class="com.powernode.web.interceptor.LoginInterceptor" />
+            <bean class="com.powernode.web.settings.web.interceptor.LoginInterceptor" />
         </mvc:interceptor>
     </mvc:interceptors>
 

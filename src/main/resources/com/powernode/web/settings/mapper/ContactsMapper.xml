@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.powernode.web.settings.mapper.ContactsMapper">
+  <resultMap id="BaseResultMap" type="com.powernode.web.settings.domain.Contacts">
+    <id column="id" jdbcType="CHAR" property="id" />
+    <result column="owner" jdbcType="CHAR" property="owner" />
+    <result column="source" jdbcType="VARCHAR" property="source" />
+    <result column="customerId" jdbcType="CHAR" property="customerid" />
+    <result column="fullName" jdbcType="VARCHAR" property="fullname" />
+    <result column="appellation" jdbcType="VARCHAR" property="appellation" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="mphone" jdbcType="VARCHAR" property="mphone" />
+    <result column="job" jdbcType="VARCHAR" property="job" />
+    <result column="birth" jdbcType="CHAR" property="birth" />
+    <result column="createBy" jdbcType="VARCHAR" property="createby" />
+    <result column="createTime" jdbcType="CHAR" property="createtime" />
+    <result column="editBy" jdbcType="VARCHAR" property="editby" />
+    <result column="editTime" jdbcType="CHAR" property="edittime" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+    <result column="contactSummary" jdbcType="VARCHAR" property="contactsummary" />
+    <result column="nextContactTime" jdbcType="CHAR" property="nextcontacttime" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from t_contacts
+    where id = #{id,jdbcType=CHAR}
+  </delete>
+  <insert id="insert" parameterType="com.powernode.web.settings.domain.Contacts">
+    insert into t_contacts (id, owner, source, 
+      customerId, fullName, appellation, 
+      email, mphone, job, 
+      birth, createBy, createTime, 
+      editBy, editTime, description, 
+      contactSummary, nextContactTime, address
+      )
+    values (#{id,jdbcType=CHAR}, #{owner,jdbcType=CHAR}, #{source,jdbcType=VARCHAR}, 
+      #{customerid,jdbcType=CHAR}, #{fullname,jdbcType=VARCHAR}, #{appellation,jdbcType=VARCHAR}, 
+      #{email,jdbcType=VARCHAR}, #{mphone,jdbcType=VARCHAR}, #{job,jdbcType=VARCHAR}, 
+      #{birth,jdbcType=CHAR}, #{createby,jdbcType=VARCHAR}, #{createtime,jdbcType=CHAR}, 
+      #{editby,jdbcType=VARCHAR}, #{edittime,jdbcType=CHAR}, #{description,jdbcType=VARCHAR}, 
+      #{contactsummary,jdbcType=VARCHAR}, #{nextcontacttime,jdbcType=CHAR}, #{address,jdbcType=VARCHAR}
+      )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.powernode.web.settings.domain.Contacts">
+    update t_contacts
+    set owner = #{owner,jdbcType=CHAR},
+      source = #{source,jdbcType=VARCHAR},
+      customerId = #{customerid,jdbcType=CHAR},
+      fullName = #{fullname,jdbcType=VARCHAR},
+      appellation = #{appellation,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      mphone = #{mphone,jdbcType=VARCHAR},
+      job = #{job,jdbcType=VARCHAR},
+      birth = #{birth,jdbcType=CHAR},
+      createBy = #{createby,jdbcType=VARCHAR},
+      createTime = #{createtime,jdbcType=CHAR},
+      editBy = #{editby,jdbcType=VARCHAR},
+      editTime = #{edittime,jdbcType=CHAR},
+      description = #{description,jdbcType=VARCHAR},
+      contactSummary = #{contactsummary,jdbcType=VARCHAR},
+      nextContactTime = #{nextcontacttime,jdbcType=CHAR},
+      address = #{address,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=CHAR}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select id, owner, source, customerId, fullName, appellation, email, mphone, job, 
+    birth, createBy, createTime, editBy, editTime, description, contactSummary, nextContactTime, 
+    address
+    from t_contacts
+    where id = #{id,jdbcType=CHAR}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, owner, source, customerId, fullName, appellation, email, mphone, job, 
+    birth, createBy, createTime, editBy, editTime, description, contactSummary, nextContactTime, 
+    address
+    from t_contacts
+  </select>
+</mapper>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.powernode.web.settings.mapper.ClueActivityRelationMapper">
+  <resultMap id="BaseResultMap" type="com.powernode.web.settings.domain.ClueActivityRelation">
+    <id column="id" jdbcType="CHAR" property="id" />
+    <result column="clueId" jdbcType="CHAR" property="clueid" />
+    <result column="activityId" jdbcType="CHAR" property="activityid" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from t_clue_activity_relation
+    where id = #{id,jdbcType=CHAR}
+  </delete>
+  <insert id="insert" parameterType="com.powernode.web.settings.domain.ClueActivityRelation">
+    insert into t_clue_activity_relation (id, clueId, activityId
+      )
+    values (#{id,jdbcType=CHAR}, #{clueid,jdbcType=CHAR}, #{activityid,jdbcType=CHAR}
+      )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.powernode.web.settings.domain.ClueActivityRelation">
+    update t_clue_activity_relation
+    set clueId = #{clueid,jdbcType=CHAR},
+      activityId = #{activityid,jdbcType=CHAR}
+    where id = #{id,jdbcType=CHAR}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select id, clueId, activityId
+    from t_clue_activity_relation
+    where id = #{id,jdbcType=CHAR}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, clueId, activityId
+    from t_clue_activity_relation
+  </select>
+</mapper>
