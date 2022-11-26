@@ -13,4 +13,8 @@ public interface ActivityRemarkMapper {
     List<ActivityRemark> selectActivityRemarksByAid(@Param("activityId") String activityId);
 
     long deleteByRemarkId(String activityRemarkId);
+
+    long insert(ActivityRemark ar);
+
+    long updateRemark(ActivityRemark remark);
 }

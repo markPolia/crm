@@ -97,9 +97,7 @@ public class WorkbenchAction {
         activity.setEditTime(DateTimeUtil.generateNowTime());
         activity.setEditBy(((User) session.getAttribute("user")).getName());
         return new AnonymousStructure() {
-            public boolean getSuccess() {
-                return activityService.updateActivity(activity);
-            }
+            public boolean getSuccess() { return activityService.updateActivity(activity); }
         };
     }
 
@@ -113,9 +111,36 @@ public class WorkbenchAction {
     @RequestMapping("/activity/deleteRemarkById")
     public AnonymousStructure activityDeleteRemarkById(String activityRemarkId) {
         return new AnonymousStructure() {
+            public boolean getSuccess() { return activityRemarkService.deleteRemarkById(activityRemarkId); }
+        };
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/activity/saveRemark", method = RequestMethod.POST)
+    public AnonymousStructure activitySaveRemark(ActivityRemark ar, HttpSession session) {
+        ar.setCreateTime(DateTimeUtil.generateNowTime());
+        ar.setCreateBy(((User) session.getAttribute("user")).getName());
+        ar.setId(UUIDUtil.generateUUID());
+        ar.setEditFlag("0");
+        return new AnonymousStructure() {
             public boolean getSuccess() {
-                return activityRemarkService.deleteRemarkById(activityRemarkId);
+                return activityRemarkService.addRemark(ar);
             }
+            public ActivityRemark getAr() {
+                return ar;
+            }
+        };
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/activity/updateRemark", method = RequestMethod.POST)
+    public AnonymousStructure activityUpdateRemark(ActivityRemark remark, HttpSession session) {
+        remark.setEditFlag("1");
+        remark.setEditBy(((User) session.getAttribute("user")).getName());
+        remark.setEditTime(DateTimeUtil.generateNowTime());
+        return new AnonymousStructure() {
+            public boolean getSuccess() { return activityRemarkService.updateRemark(remark); }
+            public ActivityRemark getAr() { return remark; }
         };
     }
 }

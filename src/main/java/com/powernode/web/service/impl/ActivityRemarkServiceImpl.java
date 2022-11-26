@@ -24,4 +24,14 @@ public class ActivityRemarkServiceImpl implements ActivityRemarkService {
     public boolean deleteRemarkById(String activityRemarkId) {
         return activityRemarkMapper.deleteByRemarkId(activityRemarkId) == 1;
     }
+
+    @Override
+    public boolean addRemark(ActivityRemark ar) {
+        return activityRemarkMapper.insert(ar) == 1;
+    }
+
+    @Override
+    public boolean updateRemark(ActivityRemark remark) {
+        return activityRemarkMapper.updateRemark(remark) == 1;
+    }
 }

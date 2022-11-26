@@ -26,7 +26,7 @@
 				},
 				type : 'POST',
 				dataType : 'JSON',
-				async : false,
+				async : true,
 				success : function (json) {
 					if (eval(json).success) {
 						alert('删除成功！');
@@ -38,6 +38,95 @@
 					}
 				}
 			})
+		}
+
+		// 显示修改备注的页面
+		function showEditRemarkModal(id) {
+			$('#noteContent').val($('#' + id).children('div').children('h5').html());
+			$('#editRemarkModal').modal("show");
+			$('#remarkId').val(id);
+		}
+
+		// 修改备注
+		function editRemark() {
+			let id = $('#remarkId').val();
+			$.ajax({
+				url : '${contextPath}/workbench/activity/updateRemark',
+				data : {
+					'id' : id,
+					noteContent : $.trim($('#noteContent').val())
+				},
+				type : 'POST',
+				dataType : 'JSON',
+				async : true,
+				success : function (data) {
+					/*
+						success : boolean,
+						ar : ?
+					*/
+					if (data.success) {
+						alert('更新成功');
+						$('#' + id + '-small-info').html(data.ar.editTime + '由' + data.ar.editBy);
+						$('#' + id + '-noteContent').html(data.ar.noteContent);
+						$('#editRemarkModal').modal("hide");
+					} else {
+						alert('更新失败');
+					}
+				}
+			});
+		}
+
+		// 添加备注
+		function addRemark() {
+			$.ajax({
+				url : '${contextPath}/workbench/activity/saveRemark',
+				data : {
+					noteContent : $.trim($('#remark').val()),
+					activityId : "${requestScope.aid}"
+				},
+				type : 'POST',
+				dataType : 'JSON',
+				async : true,
+				success : function (data) {
+					/*
+                        data {
+                            success : boolean,
+                            ar {
+                                noteContent : ?,
+                                activityId : ?,
+                                createBy : ?,
+                                createTime : ?
+                            }
+                        }
+                    */
+					if (data.success) {
+						$('#remark').val("");
+						alert('添加成功');
+						// 添加html界面
+						let html = '';
+						html += '<div id="' + data.ar.id + '" class="remarkDiv" style="height: 60px;">' +
+								'<img title="zhangsan" src="${contextPath}/image/user-thumbnail.png" style="width: 30px; height:30px;" alt="pic">' +
+								'<div style="position: relative; top: -40px; left: 40px;" >' +
+								'<h5>' + data.ar.noteContent + '</h5>' +
+								'<span style="color: gray; ">市场活动</span> <span style="color: gray; ">-</span> <b>${requestScope.name}</b> <small style="color: gray;"> ' + (data.ar.createTime) + ' 由' + (data.ar.createBy) + '</small>' +
+								'<div style="position: relative; left: 500px; top: -30px; height: 30px; width: 100px; display: none;">' +
+								'<a class="myHref" href="javascript:void(0);" onclick="showEditRemarkModal(\'' + data.ar.id + '\')"><span class="glyphicon glyphicon-edit" style="font-size: 20px; color: #FF0000;"></span></a>' +
+								'&nbsp;&nbsp;&nbsp;&nbsp;' +
+								<%--
+                                    javascript:void(0);
+                                        禁用超链接，只能以触发事件的方式来进行操作
+                                --%>
+								'<a class="myHref" href="javascript:void(0);" onclick="removeRemark(\'' + data.ar.id + '\')"><span class="glyphicon glyphicon-remove" style="font-size: 20px; color: #FF0000;"></span></a>' +
+								'</div>' +
+								'</div>' +
+								'</div>';
+						$('#remarkDiv').before(html);
+					} else {
+						alert('添加失败');
+					}
+				}
+			});
+
 		}
 
 		// 展示备注信息列表
@@ -56,10 +145,10 @@
 						html += '<div id="' + element.id + '" class="remarkDiv" style="height: 60px;">' +
 							'<img title="zhangsan" src="${contextPath}/image/user-thumbnail.png" style="width: 30px; height:30px;" alt="pic">' +
 								'<div style="position: relative; top: -40px; left: 40px;" >' +
-									'<h5>' + element.noteContent + '</h5>' +
-									'<span style="color: gray; ">市场活动</span> <span style="color: gray; ">-</span> <b>${requestScope.name}</b> <small style="color: gray;"> ' + (element.editFlag === '1' ? element.editTime : element.createTime) + ' 由' + (element.editFlag === '1' ? element.editBy : element.createBy) + '</small>' +
+									'<h5 id="' + element.id + '-noteContent">' + element.noteContent + '</h5>' +
+									'<span style="color: gray; ">市场活动</span> <span style="color: gray; ">-</span> <b>${requestScope.name}</b> <small style="color: gray;" id="' + element.id + '-small-info"> ' + (element.editFlag === '1' ? element.editTime : element.createTime) + ' 由' + (element.editFlag === '1' ? element.editBy : element.createBy) + '</small>' +
 									'<div style="position: relative; left: 500px; top: -30px; height: 30px; width: 100px; display: none;">' +
-										'<a class="myHref" href="javascript:void(0);"><span class="glyphicon glyphicon-edit" style="font-size: 20px; color: #FF0000;"></span></a>' +
+										'<a class="myHref" href="javascript:void(0);" onclick="showEditRemarkModal(\'' + element.id + '\')"><span class="glyphicon glyphicon-edit" style="font-size: 20px; color: #FF0000;"></span></a>' +
 										'&nbsp;&nbsp;&nbsp;&nbsp;' +
 											<%--
 												javascript:void(0);
@@ -78,6 +167,10 @@
 		$(function(){
 			// 展现市场活动关联的备注信息列表
 			showRemarkList();
+
+			// 保存按钮绑定事件，执行添加市场活动操作
+			$('#save-remark-btn').click(addRemark);
+			$('#updateRemarkBtn').click(editRemark);
 
 			let $remarkBody = $("#remarkBody");
 			$remarkBody.on("mouseover",".remarkDiv",function(){
@@ -129,6 +222,36 @@
 	<!-- 返回按钮 -->
 	<div style="position: relative; top: 35px; left: 10px;">
 		<a href="javascript:void(0);" onclick="window.history.back();"><span class="glyphicon glyphicon-arrow-left" style="font-size: 20px; color: #DDDDDD"></span></a>
+	</div>
+
+	<!-- 修改市场活动备注的模态窗口 -->
+	<div class="modal fade" id="editRemarkModal" role="dialog">
+		<%-- 备注的id --%>
+		<input type="hidden" id="remarkId">
+		<div class="modal-dialog" role="document" style="width: 40%;">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">
+						<span aria-hidden="true">×</span>
+					</button>
+					<h4 class="modal-title" id="myModalLabel">修改备注</h4>
+				</div>
+				<div class="modal-body">
+					<form class="form-horizontal" role="form">
+						<div class="form-group">
+							<%--@declare id="edit-describe"--%><label for="edit-describe" class="col-sm-2 control-label">内容</label>
+							<div class="col-sm-10" style="width: 81%;">
+								<textarea class="form-control" rows="3" id="noteContent"></textarea>
+							</div>
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+					<button type="button" class="btn btn-primary" id="updateRemarkBtn">更新</button>
+				</div>
+			</div>
+		</div>
 	</div>
 	
 	<!-- 大标题 -->
@@ -198,7 +321,7 @@
 				<textarea id="remark" class="form-control" style="width: 850px; resize : none;" rows="2"  placeholder="添加备注..."></textarea>
 				<p id="cancelAndSaveBtn" style="position: relative;left: 737px; top: 10px; display: none;">
 					<button id="cancelBtn" type="button" class="btn btn-default">取消</button>
-					<button type="button" class="btn btn-primary">保存</button>
+					<button type="button" class="btn btn-primary" id="save-remark-btn">保存</button>
 				</p>
 			</form>
 		</div>

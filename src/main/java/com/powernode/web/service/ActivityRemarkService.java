@@ -13,4 +13,8 @@ public interface ActivityRemarkService {
     List<ActivityRemark> getActivityRemarksByAid(String activityId);
 
     boolean deleteRemarkById(String activityRemarkId);
+
+    boolean addRemark(ActivityRemark ar);
+
+    boolean updateRemark(ActivityRemark remark);
 }

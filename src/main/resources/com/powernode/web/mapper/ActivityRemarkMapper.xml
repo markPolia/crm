@@ -32,4 +32,22 @@
   <delete id="deleteByRemarkId" parameterType="string">
     delete from t_activity_remark where id = #{activityId}
   </delete>
+
+  <insert id="insert" parameterType="activityRemark">
+    insert into t_activity_remark values(#{id}, #{noteContent}, #{createTime}, #{createBy}, #{editTime}, #{editBy}, #{editFlag}, #{activityId})
+  </insert>
+
+  <update id="updateRemark" parameterType="activityRemark">
+    update t_activity_remark
+    <set>
+        <if test="noteContent != null and noteContent != ''">noteContent = #{noteContent},</if>
+        <if test="createTime != null and createTime != ''">createTime = #{createTime},</if>
+        <if test="createBy != null and createBy != ''">createBy = #{createBy},</if>
+        <if test="activityId != null and activityId != ''">activityId = #{activityId},</if>
+        <if test="editTime != null and editTime != ''">editTime = #{editTime},</if>
+        <if test="editBy != null and editBy != ''">editBy = #{editBy},</if>
+        <if test="editFlag != null and editFlag != ''">editFlag = #{editFlag}</if>
+    </set>
+    where id = #{id}
+  </update>
 </mapper>
