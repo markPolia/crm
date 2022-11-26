@@ -1,93 +1,89 @@
+<%@ page contentType="text/html;charset=UTF-8" %>
+<%@ page isELIgnored="false" %>
+<% pageContext.setAttribute("base", request.getScheme() + "://" + request.getServerName()
++ ":" + request.getServerPort() + request.getContextPath() + "/");
+pageContext.setAttribute("contextPath", request.getContextPath());%>
+
 <!DOCTYPE html>
 <html>
-<head>
-<meta charset="UTF-8">
-
-<link href="../../jquery/bootstrap_3.3.0/css/bootstrap.min.css" type="text/css" rel="stylesheet" />
-
-<style type="text/css">
-.mystage{
-	font-size: 20px;
-	vertical-align: middle;
-	cursor: pointer;
-}
-.closingDate{
-	font-size : 15px;
-	cursor: pointer;
-	vertical-align: middle;
-}
-</style>
-	
-<script type="text/javascript" src="../../jquery/jquery-1.11.1-min.js"></script>
-<script type="text/javascript" src="../../jquery/bootstrap_3.3.0/js/bootstrap.min.js"></script>
-
-<script type="text/javascript">
-
-	//默认情况下取消和保存按钮是隐藏的
-	var cancelAndSaveBtnDefault = true;
-	
-	$(function(){
-		$("#remark").focus(function(){
-			if(cancelAndSaveBtnDefault){
-				//设置remarkDiv的高度为130px
-				$("#remarkDiv").css("height","130px");
+<head lang="en">
+	<meta charset="UTF-8">
+	<title></title>
+	<link href="${contextPath}/jquery/bootstrap_3.3.0/css/bootstrap.min.css" type="text/css" rel="stylesheet" />
+	<style>
+		.mystage{
+			font-size: 20px;
+			vertical-align: middle;
+			cursor: pointer;
+		}
+		.closingDate{
+			font-size : 15px;
+			cursor: pointer;
+			vertical-align: middle;
+		}
+	</style>
+	<script type="text/javascript" src="${contextPath}/jquery/jquery-1.11.1-min.js"></script>
+	<script type="text/javascript" src="${contextPath}/jquery/bootstrap_3.3.0/js/bootstrap.min.js"></script>
+	<script type="text/javascript">
+		//默认情况下取消和保存按钮是隐藏的
+		let cancelAndSaveBtnDefault = true;
+		$(function(){
+			$("#remark").focus(function(){
+				if(cancelAndSaveBtnDefault){
+					//设置remarkDiv的高度为130px
+					$("#remarkDiv").css("height","130px");
+					//显示
+					$("#cancelAndSaveBtn").show("2000");
+					cancelAndSaveBtnDefault = false;
+				}
+			});
+			
+			$("#cancelBtn").click(function(){
 				//显示
-				$("#cancelAndSaveBtn").show("2000");
-				cancelAndSaveBtnDefault = false;
-			}
-		});
-		
-		$("#cancelBtn").click(function(){
-			//显示
-			$("#cancelAndSaveBtn").hide();
-			//设置remarkDiv的高度为130px
-			$("#remarkDiv").css("height","90px");
-			cancelAndSaveBtnDefault = true;
-		});
-		
-		$(".remarkDiv").mouseover(function(){
-			$(this).children("div").children("div").show();
-		});
-		
-		$(".remarkDiv").mouseout(function(){
-			$(this).children("div").children("div").hide();
-		});
-		
-		$(".myHref").mouseover(function(){
-			$(this).children("span").css("color","red");
-		});
-		
-		$(".myHref").mouseout(function(){
-			$(this).children("span").css("color","#E6E6E6");
-		});
-		
-		
-		//阶段提示框
-		$(".mystage").popover({
-            trigger:'manual',
-            placement : 'bottom',
-            html: 'true',
-            animation: false
-        }).on("mouseenter", function () {
-                    var _this = this;
-                    $(this).popover("show");
-                    $(this).siblings(".popover").on("mouseleave", function () {
-                        $(_this).popover('hide');
-                    });
-                }).on("mouseleave", function () {
-                    var _this = this;
-                    setTimeout(function () {
-                        if (!$(".popover:hover").length) {
-                            $(_this).popover("hide")
-                        }
-                    }, 100);
-                });
-	});
+				$("#cancelAndSaveBtn").hide();
+				//设置remarkDiv的高度为130px
+				$("#remarkDiv").css("height","90px");
+				cancelAndSaveBtnDefault = true;
+			});
 	
+			let $remarkDiv = $(".remarkDiv");
+			$remarkDiv.mouseover(function(){
+				$(this).children("div").children("div").show();
+			});
+			$remarkDiv.mouseout(function(){
+				$(this).children("div").children("div").hide();
+			});
 	
-	
-</script>
-
+			let $myHref = $(".myHref");
+			$myHref.mouseover(function(){
+				$(this).children("span").css("color","red");
+			});
+			$myHref.mouseout(function(){
+				$(this).children("span").css("color","#E6E6E6");
+			});
+			
+			//阶段提示框
+			$(".mystage").popover({
+				trigger:'manual',
+				placement : 'bottom',
+				html: 'true',
+				animation: false
+			}).on("mouseenter", function () {
+						let _this = this;
+						$(this).popover("show");
+						$(this).siblings(".popover").on("mouseleave", function () {
+							$(_this).popover('hide');
+						});
+					}).on("mouseleave", function () {
+						let _this = this;
+						setTimeout(function () {
+							if (!$(".popover:hover").length) {
+								$(_this).popover("hide")
+							}
+						}, 100);
+					});
+		});
+	</script>
 </head>
 <body>
 	
@@ -132,7 +128,7 @@
 	</div>
 	
 	<!-- 详细信息 -->
-	<div style="position: relative; top: 0px;">
+	<div style="position: relative; top: 0;">
 		<div style="position: relative; left: 40px; height: 30px;">
 			<div style="width: 300px; color: gray;">所有者</div>
 			<div style="width: 300px;position: relative; left: 200px; top: -20px;"><b>zhangsan</b></div>
@@ -221,10 +217,10 @@
 		
 		<!-- 备注1 -->
 		<div class="remarkDiv" style="height: 60px;">
-			<img title="zhangsan" src="../../image/user-thumbnail.png" style="width: 30px; height:30px;">
+			<img alt="pic" title="zhangsan" src="${contextPath}/image/user-thumbnail.png" style="width: 30px; height:30px;">
 			<div style="position: relative; top: -40px; left: 40px;" >
 				<h5>哎呦！</h5>
-				<font color="gray">交易</font> <font color="gray">-</font> <b>动力节点-交易01</b> <small style="color: gray;"> 2017-01-22 10:10:10 由zhangsan</small>
+				<span style="color: gray; ">交易</span> <span style="color: gray; ">-</span> <b>动力节点-交易01</b> <small style="color: gray;"> 2017-01-22 10:10:10 由zhangsan</small>
 				<div style="position: relative; left: 500px; top: -30px; height: 30px; width: 100px; display: none;">
 					<a class="myHref" href="javascript:void(0);"><span class="glyphicon glyphicon-edit" style="font-size: 20px; color: #E6E6E6;"></span></a>
 					&nbsp;&nbsp;&nbsp;&nbsp;
@@ -235,10 +231,10 @@
 		
 		<!-- 备注2 -->
 		<div class="remarkDiv" style="height: 60px;">
-			<img title="zhangsan" src="../../image/user-thumbnail.png" style="width: 30px; height:30px;">
+			<img alt="pic" title="zhangsan" src="${contextPath}/image/user-thumbnail.png" style="width: 30px; height:30px;">
 			<div style="position: relative; top: -40px; left: 40px;" >
 				<h5>呵呵！</h5>
-				<font color="gray">交易</font> <font color="gray">-</font> <b>动力节点-交易01</b> <small style="color: gray;"> 2017-01-22 10:20:10 由zhangsan</small>
+				<span style="color: gray; ">交易</span> <span style="color: gray; ">-</span> <b>动力节点-交易01</b> <small style="color: gray;"> 2017-01-22 10:20:10 由zhangsan</small>
 				<div style="position: relative; left: 500px; top: -30px; height: 30px; width: 100px; display: none;">
 					<a class="myHref" href="javascript:void(0);"><span class="glyphicon glyphicon-edit" style="font-size: 20px; color: #E6E6E6;"></span></a>
 					&nbsp;&nbsp;&nbsp;&nbsp;
@@ -264,7 +260,7 @@
 			<div class="page-header">
 				<h4>阶段历史</h4>
 			</div>
-			<div style="position: relative;top: 0px;">
+			<div style="position: relative;top: 0;">
 				<table id="activityTable" class="table table-hover" style="width: 900px;">
 					<thead>
 						<tr style="color: #B3B3B3;">

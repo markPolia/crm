@@ -1,55 +1,55 @@
+<%@ page contentType="text/html;charset=UTF-8" %>
+<%@ page isELIgnored="false" %>
+<% pageContext.setAttribute("base", request.getScheme() + "://" + request.getServerName()
+		+ ":" + request.getServerPort() + request.getContextPath() + "/");
+	pageContext.setAttribute("contextPath", request.getContextPath());%>
+
 <!DOCTYPE html>
 <html>
-<head>
-<meta charset="UTF-8">
-
-<link href="../../jquery/bootstrap_3.3.0/css/bootstrap.min.css" type="text/css" rel="stylesheet" />
-<script type="text/javascript" src="../../jquery/jquery-1.11.1-min.js"></script>
-<script type="text/javascript" src="../../jquery/bootstrap_3.3.0/js/bootstrap.min.js"></script>
-
-<script type="text/javascript">
-
-	//默认情况下取消和保存按钮是隐藏的
-	var cancelAndSaveBtnDefault = true;
-	
-	$(function(){
-		$("#remark").focus(function(){
-			if(cancelAndSaveBtnDefault){
-				//设置remarkDiv的高度为130px
-				$("#remarkDiv").css("height","130px");
+<head lang="en">
+	<meta charset="UTF-8">
+	<title></title>
+	<link href="${contextPath}/jquery/bootstrap_3.3.0/css/bootstrap.min.css" type="text/css" rel="stylesheet" />
+	<script type="text/javascript" src="${contextPath}/jquery/jquery-1.11.1-min.js"></script>
+	<script type="text/javascript" src="${contextPath}/jquery/bootstrap_3.3.0/js/bootstrap.min.js"></script>
+	<script type="text/javascript">
+		//默认情况下取消和保存按钮是隐藏的
+		let cancelAndSaveBtnDefault = true;
+		$(function(){
+			$("#remark").focus(function(){
+				if(cancelAndSaveBtnDefault){
+					//设置remarkDiv的高度为130px
+					$("#remarkDiv").css("height","130px");
+					//显示
+					$("#cancelAndSaveBtn").show("2000");
+					cancelAndSaveBtnDefault = false;
+				}
+			});
+			$("#cancelBtn").click(function(){
 				//显示
-				$("#cancelAndSaveBtn").show("2000");
-				cancelAndSaveBtnDefault = false;
-			}
-		});
-		
-		$("#cancelBtn").click(function(){
-			//显示
-			$("#cancelAndSaveBtn").hide();
-			//设置remarkDiv的高度为130px
-			$("#remarkDiv").css("height","90px");
-			cancelAndSaveBtnDefault = true;
-		});
-		
-		$(".remarkDiv").mouseover(function(){
-			$(this).children("div").children("div").show();
-		});
-		
-		$(".remarkDiv").mouseout(function(){
-			$(this).children("div").children("div").hide();
-		});
-		
-		$(".myHref").mouseover(function(){
-			$(this).children("span").css("color","red");
-		});
-		
-		$(".myHref").mouseout(function(){
-			$(this).children("span").css("color","#E6E6E6");
-		});
-	});
+				$("#cancelAndSaveBtn").hide();
+				//设置remarkDiv的高度为130px
+				$("#remarkDiv").css("height","90px");
+				cancelAndSaveBtnDefault = true;
+			});
 	
-</script>
-
+			let $remarkDiv = $(".remarkDiv");
+			$remarkDiv.mouseover(function(){
+				$(this).children("div").children("div").show();
+			});
+			$remarkDiv.mouseout(function(){
+				$(this).children("div").children("div").hide();
+			});
+	
+			let $myHref = $(".myHref");
+			$myHref.mouseover(function(){
+				$(this).children("span").css("color","red");
+			});
+			$myHref.mouseout(function(){
+				$(this).children("span").css("color","#E6E6E6");
+			});
+		});
+	</script>
 </head>
 <body>
 
@@ -263,7 +263,7 @@
                         <div class="form-group">
                             <label for="edit-website" class="col-sm-2 control-label">公司网站</label>
                             <div class="col-sm-10" style="width: 300px;">
-                                <input type="text" class="form-control" id="edit-website" value="http://www.bjpowernode.com">
+                                <input type="text" class="form-control" id="edit-website" value="https://www.bjpowernode.com">
                             </div>
                             <label for="edit-phone" class="col-sm-2 control-label">公司座机</label>
                             <div class="col-sm-10" style="width: 300px;">
@@ -324,7 +324,7 @@
 	<!-- 大标题 -->
 	<div style="position: relative; left: 40px; top: -30px;">
 		<div class="page-header">
-			<h3>动力节点 <small><a href="http://www.bjpowernode.com" target="_blank">http://www.bjpowernode.com</a></small></h3>
+			<h3>动力节点 <small><a href="https://www.bjpowernode.com" target="_blank">https://www.bjpowernode.com</a></small></h3>
 		</div>
 		<div style="position: relative; height: 50px; width: 500px;  top: -72px; left: 700px;">
 			<button type="button" class="btn btn-default" data-toggle="modal" data-target="#editCustomerModal"><span class="glyphicon glyphicon-edit"></span> 编辑</button>
@@ -344,7 +344,7 @@
 		</div>
 		<div style="position: relative; left: 40px; height: 30px; top: 10px;">
 			<div style="width: 300px; color: gray;">公司网站</div>
-			<div style="width: 300px;position: relative; left: 200px; top: -20px;"><b>http://www.bjpowernode.com</b></div>
+			<div style="width: 300px;position: relative; left: 200px; top: -20px;"><b>https://www.bjpowernode.com</b></div>
 			<div style="width: 300px;position: relative; left: 450px; top: -40px; color: gray;">公司座机</div>
 			<div style="width: 300px;position: relative; left: 650px; top: -60px;"><b>010-84846003</b></div>
 			<div style="height: 1px; width: 400px; background: #D5D5D5; position: relative; top: -60px;"></div>
@@ -402,10 +402,11 @@
 		
 		<!-- 备注1 -->
 		<div class="remarkDiv" style="height: 60px;">
-			<img title="zhangsan" src="../../image/user-thumbnail.png" style="width: 30px; height:30px;">
+			<img alt="pic" title="zhangsan" src="${contextPath}/image/user-thumbnail.png" style="width: 30px; height:30px;">
 			<div style="position: relative; top: -40px; left: 40px;" >
 				<h5>哎呦！</h5>
-				<font color="gray">联系人</font> <font color="gray">-</font> <b>李四先生-北京动力节点</b> <small style="color: gray;"> 2017-01-22 10:10:10 由zhangsan</small>
+				<span style="color: gray; ">联系人</span> <span
+					style="color: gray; ">-</span> <b>李四先生-北京动力节点</b> <small style="color: gray;"> 2017-01-22 10:10:10 由zhangsan</small>
 				<div style="position: relative; left: 500px; top: -30px; height: 30px; width: 100px; display: none;">
 					<a class="myHref" href="javascript:void(0);"><span class="glyphicon glyphicon-edit" style="font-size: 20px; color: #E6E6E6;"></span></a>
 					&nbsp;&nbsp;&nbsp;&nbsp;
@@ -416,10 +417,11 @@
 		
 		<!-- 备注2 -->
 		<div class="remarkDiv" style="height: 60px;">
-			<img title="zhangsan" src="../../image/user-thumbnail.png" style="width: 30px; height:30px;">
+			<img alt="pic" title="zhangsan" src="${contextPath}/image/user-thumbnail.png" style="width: 30px; height:30px;">
 			<div style="position: relative; top: -40px; left: 40px;" >
 				<h5>呵呵！</h5>
-				<font color="gray">联系人</font> <font color="gray">-</font> <b>李四先生-北京动力节点</b> <small style="color: gray;"> 2017-01-22 10:20:10 由zhangsan</small>
+				<span style="color: gray; ">联系人</span> <span
+					style="color: gray; ">-</span> <b>李四先生-北京动力节点</b> <small style="color: gray;"> 2017-01-22 10:20:10 由zhangsan</small>
 				<div style="position: relative; left: 500px; top: -30px; height: 30px; width: 100px; display: none;">
 					<a class="myHref" href="javascript:void(0);"><span class="glyphicon glyphicon-edit" style="font-size: 20px; color: #E6E6E6;"></span></a>
 					&nbsp;&nbsp;&nbsp;&nbsp;
@@ -445,7 +447,7 @@
 			<div class="page-header">
 				<h4>交易</h4>
 			</div>
-			<div style="position: relative;top: 0px;">
+			<div style="position: relative;top: 0;">
 				<table id="activityTable2" class="table table-hover" style="width: 900px;">
 					<thead>
 						<tr style="color: #B3B3B3;">
@@ -460,7 +462,7 @@
 					</thead>
 					<tbody>
 						<tr>
-							<td><a href="../transaction/detail.html" style="text-decoration: none;">动力节点-交易01</a></td>
+							<td><a href="${contextPath}/workbench/transaction/detail" style="text-decoration: none;">动力节点-交易01</a></td>
 							<td>5,000</td>
 							<td>谈判/复审</td>
 							<td>90</td>
@@ -473,7 +475,7 @@
 			</div>
 			
 			<div>
-				<a href="../transaction/save.html" style="text-decoration: none;"><span class="glyphicon glyphicon-plus"></span>新建交易</a>
+				<a href="${contextPath}/workbench/transaction/save" style="text-decoration: none;"><span class="glyphicon glyphicon-plus"></span>新建交易</a>
 			</div>
 		</div>
 	</div>
@@ -484,7 +486,7 @@
 			<div class="page-header">
 				<h4>联系人</h4>
 			</div>
-			<div style="position: relative;top: 0px;">
+			<div style="position: relative;top: 0;">
 				<table id="activityTable" class="table table-hover" style="width: 900px;">
 					<thead>
 						<tr style="color: #B3B3B3;">
@@ -496,7 +498,7 @@
 					</thead>
 					<tbody>
 						<tr>
-							<td><a href="../contacts/detail.html" style="text-decoration: none;">李四</a></td>
+							<td><a href="${contextPath}/workbench/contacts/detail" style="text-decoration: none;">李四</a></td>
 							<td>lisi@bjpowernode.com</td>
 							<td>13543645364</td>
 							<td><a href="javascript:void(0);" data-toggle="modal" data-target="#removeContactsModal" style="text-decoration: none;"><span class="glyphicon glyphicon-remove"></span>删除</a></td>

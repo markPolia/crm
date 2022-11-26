@@ -8,7 +8,7 @@
 <html>
 <head lang="en">
 	<meta charset="UTF-8">
-	<title></title>
+	<title>线索页</title>
 	<link href="${contextPath}/jquery/bootstrap_3.3.0/css/bootstrap.min.css" type="text/css" rel="stylesheet" />
 	<link href="${contextPath}/jquery/bootstrap-datetimepicker-master/css/bootstrap-datetimepicker.min.css" type="text/css" rel="stylesheet" />
 	<script type="text/javascript" src="${contextPath}/jquery/jquery-1.11.1-min.js"></script>
@@ -334,10 +334,7 @@
 			</div>
 		</div>
 	</div>
-	
-	
-	
-	
+
 	<div>
 		<div style="position: relative; left: 10px; top: -10px;">
 			<div class="page-header">
@@ -405,9 +402,7 @@
 				      <input class="form-control" type="text">
 				    </div>
 				  </div>
-				  
-				  
-				  
+
 				  <div class="form-group">
 				    <div class="input-group">
 				      <div class="input-group-addon">手机</div>
@@ -461,7 +456,7 @@
 					<tbody>
 						<tr>
 							<td><input type="checkbox" /></td>
-							<td><a style="text-decoration: none; cursor: pointer;" onclick="window.location.href='detail.html';">李四先生</a></td>
+							<td><a style="text-decoration: none; cursor: pointer;" onclick="window.location.href='detail';">李四先生</a></td>
 							<td>动力节点</td>
 							<td>010-84846003</td>
 							<td>12345678901</td>
@@ -471,7 +466,7 @@
 						</tr>
                         <tr class="active">
                             <td><input type="checkbox" /></td>
-                            <td><a style="text-decoration: none; cursor: pointer;" onclick="window.location.href='detail.html';">李四先生</a></td>
+                            <td><a style="text-decoration: none; cursor: pointer;" onclick="window.location.href='detail';">李四先生</a></td>
                             <td>动力节点</td>
                             <td>010-84846003</td>
                             <td>12345678901</td>
@@ -517,9 +512,7 @@
 					</nav>
 				</div>
 			</div>
-			
 		</div>
-		
 	</div>
 </body>
 </html>

@@ -1,50 +1,48 @@
+<%@ page contentType="text/html;charset=UTF-8" %>
+<%@ page isELIgnored="false" %>
+<% pageContext.setAttribute("base", request.getScheme() + "://" + request.getServerName()
+		+ ":" + request.getServerPort() + request.getContextPath() + "/");
+	pageContext.setAttribute("contextPath", request.getContextPath());%>
+
 <!DOCTYPE html>
 <html>
-<head>
-<meta charset="UTF-8">
-
-<link href="../../jquery/bootstrap_3.3.0/css/bootstrap.min.css" type="text/css" rel="stylesheet" />
-<link href="../../jquery/bootstrap-datetimepicker-master/css/bootstrap-datetimepicker.min.css" type="text/css" rel="stylesheet" />
-
-<script type="text/javascript" src="../../jquery/jquery-1.11.1-min.js"></script>
-<script type="text/javascript" src="../../jquery/bootstrap_3.3.0/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="../../jquery/bootstrap-datetimepicker-master/js/bootstrap-datetimepicker.min.js"></script>
-<script type="text/javascript" src="../../jquery/bootstrap-datetimepicker-master/locale/bootstrap-datetimepicker.zh-CN.js"></script>
-
-<script type="text/javascript">
-
-	$(function(){
-		
-		//以下日历插件在FF中存在兼容问题，在IE浏览器中可以正常使用。
-		/*
-		$("#startTime").datetimepicker({
-			minView: "month",
-			language:  'zh-CN',
-			format: 'yyyy-mm-dd',
-	        autoclose: true,
-	        todayBtn: true,
-	        pickerPosition: "bottom-left"
+<head lang="en">
+	<meta charset="UTF-8">
+	<title></title>
+	<link href="${contextPath}/jquery/bootstrap_3.3.0/css/bootstrap.min.css" type="text/css" rel="stylesheet" />
+	<link href="${contextPath}/jquery/bootstrap-datetimepicker-master/css/bootstrap-datetimepicker.min.css" type="text/css" rel="stylesheet" />
+	<script type="text/javascript" src="${contextPath}/jquery/jquery-1.11.1-min.js"></script>
+	<script type="text/javascript" src="${contextPath}/jquery/bootstrap_3.3.0/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="${contextPath}/jquery/bootstrap-datetimepicker-master/js/bootstrap-datetimepicker.min.js"></script>
+	<script type="text/javascript" src="${contextPath}/jquery/bootstrap-datetimepicker-master/locale/bootstrap-datetimepicker.zh-CN.js"></script>
+	<script type="text/javascript">
+		$(function(){
+			//以下日历插件在FF中存在兼容问题，在IE浏览器中可以正常使用。
+			/*
+			$("#startTime").datetimepicker({
+				minView: "month",
+				language:  'zh-CN',
+				format: 'yyyy-mm-dd',
+				autoclose: true,
+				todayBtn: true,
+				pickerPosition: "bottom-left"
+			});
+			$("#endTime").datetimepicker({
+				minView: "month",
+				language:  'zh-CN',
+				format: 'yyyy-mm-dd',
+				autoclose: true,
+				todayBtn: true,
+				pickerPosition: "bottom-left"
+			});
+			*/
+			//定制字段
+			$("#definedColumns > li").click(function(e) {
+				//防止下拉菜单消失
+				e.stopPropagation();
+			});
 		});
-		
-		$("#endTime").datetimepicker({
-			minView: "month",
-			language:  'zh-CN',
-			format: 'yyyy-mm-dd',
-	        autoclose: true,
-	        todayBtn: true,
-	        pickerPosition: "bottom-left"
-		});
-		*/
-		
-		//定制字段
-		$("#definedColumns > li").click(function(e) {
-			//防止下拉菜单消失
-	        e.stopPropagation();
-	    });
-		
-	});
-	
-</script>
+	</script>
 </head>
 <body>
 
@@ -58,7 +56,7 @@
 		</div>
 	</div>
 	
-	<div style="position: relative; top: -20px; left: 0px; width: 100%; height: 100%;">
+	<div style="position: relative; top: -20px; left: 0; width: 100%; height: 100%;">
 	
 		<div style="width: 100%; position: absolute;top: 5px; left: 10px;">
 		
@@ -134,9 +132,9 @@
 			</div>
 			<div class="btn-toolbar" role="toolbar" style="background-color: #F7F7F7; height: 50px; position: relative;top: 5px;">
 				<div class="btn-group" style="position: relative; top: 18%;">
-				  <button type="button" class="btn btn-primary" onclick="window.location.href='saveTask.html';"><span class="glyphicon glyphicon-plus"></span> 任务</button>
+				  <button type="button" class="btn btn-primary" onclick="window.location.href='saveTask';"><span class="glyphicon glyphicon-plus"></span> 任务</button>
 				  <button type="button" class="btn btn-default" onclick="alert('可以自行实现对通话的管理');"><span class="glyphicon glyphicon-plus"></span> 通话</button>
-				  <button type="button" class="btn btn-default" onclick="window.location.href='editTask.html';"><span class="glyphicon glyphicon-pencil"></span> 修改</button>
+				  <button type="button" class="btn btn-default" onclick="window.location.href='editTask';"><span class="glyphicon glyphicon-pencil"></span> 修改</button>
 				  <button type="button" class="btn btn-danger"><span class="glyphicon glyphicon-minus"></span> 删除</button>
 				</div>
 				
@@ -157,7 +155,7 @@
 					<tbody>
 						<tr>
 							<td><input type="checkbox" /></td>
-							<td><a style="text-decoration: none; cursor: pointer;" onclick="window.location.href='detail.html';">拜访客户</a></td>
+							<td><a style="text-decoration: none; cursor: pointer;" onclick="window.location.href='detail';">拜访客户</a></td>
 							<td>2017-07-09</td>
 							<td>李四先生</td>
 							<td>未启动</td>
@@ -166,7 +164,7 @@
 						</tr>
 						<tr>
 							<td><input type="checkbox" /></td>
-							<td><a style="text-decoration: none; cursor: pointer;" onclick="window.location.href='detail.html';">拜访客户</a></td>
+							<td><a style="text-decoration: none; cursor: pointer;" onclick="window.location.href='detail';">拜访客户</a></td>
 							<td>2017-07-09</td>
 							<td>李四先生</td>
 							<td>未启动</td>

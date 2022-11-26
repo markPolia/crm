@@ -1,29 +1,29 @@
+<%@ page contentType="text/html;charset=UTF-8" %>
+<%@ page isELIgnored="false" %>
+<% pageContext.setAttribute("base", request.getScheme() + "://" + request.getServerName()
++ ":" + request.getServerPort() + request.getContextPath() + "/");
+pageContext.setAttribute("contextPath", request.getContextPath());%>
+
 <!DOCTYPE html>
 <html>
-<head>
-<meta charset="UTF-8">
-
-<link href="../../jquery/bootstrap_3.3.0/css/bootstrap.min.css" type="text/css" rel="stylesheet" />
-<link href="../../jquery/bootstrap-datetimepicker-master/css/bootstrap-datetimepicker.min.css" type="text/css" rel="stylesheet" />
-
-<script type="text/javascript" src="../../jquery/jquery-1.11.1-min.js"></script>
-<script type="text/javascript" src="../../jquery/bootstrap_3.3.0/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="../../jquery/bootstrap-datetimepicker-master/js/bootstrap-datetimepicker.min.js"></script>
-<script type="text/javascript" src="../../jquery/bootstrap-datetimepicker-master/locale/bootstrap-datetimepicker.zh-CN.js"></script>
-
-<script type="text/javascript">
-
-	$(function(){
-		
-		//定制字段
-		$("#definedColumns > li").click(function(e) {
-			//防止下拉菜单消失
-	        e.stopPropagation();
-	    });
-		
-	});
-	
-</script>
+<head lang="en">
+	<meta charset="UTF-8">
+	<title></title>
+	<link href="${contextPath}/jquery/bootstrap_3.3.0/css/bootstrap.min.css" type="text/css" rel="stylesheet" />
+	<link href="${contextPath}/jquery/bootstrap-datetimepicker-master/css/bootstrap-datetimepicker.min.css" type="text/css" rel="stylesheet" />
+	<script type="text/javascript" src="${contextPath}/jquery/jquery-1.11.1-min.js"></script>
+	<script type="text/javascript" src="${contextPath}/jquery/bootstrap_3.3.0/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="${contextPath}/jquery/bootstrap-datetimepicker-master/js/bootstrap-datetimepicker.min.js"></script>
+	<script type="text/javascript" src="${contextPath}/jquery/bootstrap-datetimepicker-master/locale/bootstrap-datetimepicker.zh-CN.js"></script>
+	<script type="text/javascript">
+		$(function(){
+			//定制字段
+			$("#definedColumns > li").click(function(e) {
+				//防止下拉菜单消失
+				e.stopPropagation();
+			});
+		});
+	</script>
 </head>
 <body>
 
@@ -313,7 +313,7 @@
 		</div>
 	</div>
 	
-	<div style="position: relative; top: -20px; left: 0px; width: 100%; height: 100%;">
+	<div style="position: relative; top: -20px; left: 0; width: 100%; height: 100%;">
 	
 		<div style="width: 100%; position: absolute;top: 5px; left: 10px;">
 		
@@ -401,7 +401,7 @@
 					<tbody>
 						<tr>
 							<td><input type="checkbox" /></td>
-							<td><a style="text-decoration: none; cursor: pointer;" onclick="window.location.href='detail.html';">李四</a></td>
+							<td><a style="text-decoration: none; cursor: pointer;" onclick="window.location.href='detail';">李四</a></td>
 							<td>动力节点</td>
 							<td>zhangsan</td>
 							<td>广告</td>
@@ -409,7 +409,7 @@
 						</tr>
                         <tr class="active">
                             <td><input type="checkbox" /></td>
-                            <td><a style="text-decoration: none; cursor: pointer;" onclick="window.location.href='detail.html';">李四</a></td>
+                            <td><a style="text-decoration: none; cursor: pointer;" onclick="window.location.href='detail';">李四</a></td>
                             <td>动力节点</td>
                             <td>zhangsan</td>
                             <td>广告</td>

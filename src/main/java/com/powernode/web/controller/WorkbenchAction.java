@@ -33,6 +33,61 @@ public class WorkbenchAction {
     @Resource(type = UserService.class)
     private UserService userService;
 
+    @RequestMapping("/clue/convert")
+    public String clueConvert() {
+        return "/workbench/clue/convert";
+    }
+
+    @RequestMapping("/clue/detail")
+    public String clueDetail() {
+        return "workbench/clue/detail";
+    }
+
+    @RequestMapping("/clue/index")
+    public String clueIndex() {
+        return "workbench/clue/index";
+    }
+
+    @RequestMapping("/contacts/detail")
+    public String contactsDetail() {
+        return "workbench/contacts/detail";
+    }
+
+    @RequestMapping("/contacts/index")
+    public String contactsIndex() {
+        return "workbench/contacts/index";
+    }
+
+    @RequestMapping("/customer/detail")
+    public String customerDetail() {
+        return "workbench/customer/detail";
+    }
+
+    @RequestMapping("/customer/index")
+    public String customerIndex() {
+        return "workbench/customer/index";
+    }
+
+    @RequestMapping("/transaction/index")
+    public String transactionIndex() {
+        return "workbench/transaction/index";
+    }
+
+    @RequestMapping("/transaction/detail")
+    public String transactionDetail() {
+        return "workbench/transaction/detail";
+    }
+
+    @RequestMapping("/transaction/edit")
+    public String transactionEdit() {
+        return "workbench/transaction/edit";
+    }
+
+    @RequestMapping("/transaction/save")
+    public String transactionSave() {
+        return "workbench/transaction/save";
+    }
+
     @RequestMapping(value = "/index")
     public String workbenchIndex() {
         return "workbench/index";

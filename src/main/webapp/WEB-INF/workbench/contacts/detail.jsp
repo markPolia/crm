@@ -1,55 +1,57 @@
+<%@ page contentType="text/html;charset=UTF-8" %>
+<%@ page isELIgnored="false" %>
+<% pageContext.setAttribute("base", request.getScheme() + "://" + request.getServerName()
+		+ ":" + request.getServerPort() + request.getContextPath() + "/");
+	pageContext.setAttribute("contextPath", request.getContextPath());%>
+
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-
-<link href="../../jquery/bootstrap_3.3.0/css/bootstrap.min.css" type="text/css" rel="stylesheet" />
-<script type="text/javascript" src="../../jquery/jquery-1.11.1-min.js"></script>
-<script type="text/javascript" src="../../jquery/bootstrap_3.3.0/js/bootstrap.min.js"></script>
-
-<script type="text/javascript">
-
-	//默认情况下取消和保存按钮是隐藏的
-	var cancelAndSaveBtnDefault = true;
+	<meta charset="UTF-8">
+	<title></title>
+	<link href="${contextPath}/jquery/bootstrap_3.3.0/css/bootstrap.min.css" type="text/css" rel="stylesheet" />
+	<script type="text/javascript" src="${contextPath}/jquery/jquery-1.11.1-min.js"></script>
+	<script type="text/javascript" src="${contextPath}/jquery/bootstrap_3.3.0/js/bootstrap.min.js"></script>
 	
-	$(function(){
-		$("#remark").focus(function(){
-			if(cancelAndSaveBtnDefault){
-				//设置remarkDiv的高度为130px
-				$("#remarkDiv").css("height","130px");
+	<script type="text/javascript">
+		//默认情况下取消和保存按钮是隐藏的
+		let cancelAndSaveBtnDefault = true;
+		$(function(){
+			$("#remark").focus(function(){
+				if(cancelAndSaveBtnDefault){
+					//设置remarkDiv的高度为130px
+					$("#remarkDiv").css("height","130px");
+					//显示
+					$("#cancelAndSaveBtn").show("2000");
+					cancelAndSaveBtnDefault = false;
+				}
+			});
+			
+			$("#cancelBtn").click(function(){
 				//显示
-				$("#cancelAndSaveBtn").show("2000");
-				cancelAndSaveBtnDefault = false;
-			}
-		});
-		
-		$("#cancelBtn").click(function(){
-			//显示
-			$("#cancelAndSaveBtn").hide();
-			//设置remarkDiv的高度为130px
-			$("#remarkDiv").css("height","90px");
-			cancelAndSaveBtnDefault = true;
-		});
-		
-		$(".remarkDiv").mouseover(function(){
-			$(this).children("div").children("div").show();
-		});
-		
-		$(".remarkDiv").mouseout(function(){
-			$(this).children("div").children("div").hide();
-		});
-		
-		$(".myHref").mouseover(function(){
-			$(this).children("span").css("color","red");
-		});
-		
-		$(".myHref").mouseout(function(){
-			$(this).children("span").css("color","#E6E6E6");
-		});
-	});
-	
-</script>
+				$("#cancelAndSaveBtn").hide();
+				//设置remarkDiv的高度为130px
+				$("#remarkDiv").css("height","90px");
+				cancelAndSaveBtnDefault = true;
+			});
 
+			let $remarkDiv = $(".remarkDiv");
+			$remarkDiv.mouseover(function(){
+				$(this).children("div").children("div").show();
+			});
+			$remarkDiv.mouseout(function(){
+				$(this).children("div").children("div").hide();
+			});
+
+			let $myHref = $(".myHref");
+			$myHref.mouseover(function(){
+				$(this).children("span").css("color","red");
+			});
+			$myHref.mouseout(function(){
+				$(this).children("span").css("color","#E6E6E6");
+			});
+		});
+	</script>
 </head>
 <body>
 
@@ -367,10 +369,11 @@
 		
 		<!-- 备注1 -->
 		<div class="remarkDiv" style="height: 60px;">
-			<img title="zhangsan" src="../../image/user-thumbnail.png" style="width: 30px; height:30px;">
+			<img title="zhangsan" src="${contextPath}/image/user-thumbnail.png" style="width: 30px; height:30px;" alt="pic">
 			<div style="position: relative; top: -40px; left: 40px;" >
 				<h5>哎呦！</h5>
-				<font color="gray">联系人</font> <font color="gray">-</font> <b>李四先生-北京动力节点</b> <small style="color: gray;"> 2017-01-22 10:10:10 由zhangsan</small>
+				<span style="color: gray; ">联系人</span> <span
+					style="color: gray; ">-</span> <b>李四先生-北京动力节点</b> <small style="color: gray;"> 2017-01-22 10:10:10 由zhangsan</small>
 				<div style="position: relative; left: 500px; top: -30px; height: 30px; width: 100px; display: none;">
 					<a class="myHref" href="javascript:void(0);"><span class="glyphicon glyphicon-edit" style="font-size: 20px; color: #E6E6E6;"></span></a>
 					&nbsp;&nbsp;&nbsp;&nbsp;
@@ -381,10 +384,11 @@
 		
 		<!-- 备注2 -->
 		<div class="remarkDiv" style="height: 60px;">
-			<img title="zhangsan" src="../../image/user-thumbnail.png" style="width: 30px; height:30px;">
+			<img title="zhangsan" src="${contextPath}/image/user-thumbnail.png" style="width: 30px; height:30px;" alt="pic">
 			<div style="position: relative; top: -40px; left: 40px;" >
 				<h5>呵呵！</h5>
-				<font color="gray">联系人</font> <font color="gray">-</font> <b>李四先生-北京动力节点</b> <small style="color: gray;"> 2017-01-22 10:20:10 由zhangsan</small>
+				<span style="color: gray; ">联系人</span> <span
+					style="color: gray; ">-</span> <b>李四先生-北京动力节点</b> <small style="color: gray;"> 2017-01-22 10:20:10 由zhangsan</small>
 				<div style="position: relative; left: 500px; top: -30px; height: 30px; width: 100px; display: none;">
 					<a class="myHref" href="javascript:void(0);"><span class="glyphicon glyphicon-edit" style="font-size: 20px; color: #E6E6E6;"></span></a>
 					&nbsp;&nbsp;&nbsp;&nbsp;
@@ -410,7 +414,7 @@
 			<div class="page-header">
 				<h4>交易</h4>
 			</div>
-			<div style="position: relative;top: 0px;">
+			<div style="position: relative;top: 0;">
 				<table id="activityTable3" class="table table-hover" style="width: 900px;">
 					<thead>
 						<tr style="color: #B3B3B3;">
@@ -425,7 +429,7 @@
 					</thead>
 					<tbody>
 						<tr>
-							<td><a href="../transaction/detail.html" style="text-decoration: none;">动力节点-交易01</a></td>
+							<td><a href="../transaction/detail" style="text-decoration: none;">动力节点-交易01</a></td>
 							<td>5,000</td>
 							<td>谈判/复审</td>
 							<td>90</td>
@@ -438,7 +442,7 @@
 			</div>
 			
 			<div>
-				<a href="../transaction/save.html" style="text-decoration: none;"><span class="glyphicon glyphicon-plus"></span>新建交易</a>
+				<a href="../transaction/save" style="text-decoration: none;"><span class="glyphicon glyphicon-plus"></span>新建交易</a>
 			</div>
 		</div>
 	</div>
@@ -449,7 +453,7 @@
 			<div class="page-header">
 				<h4>市场活动</h4>
 			</div>
-			<div style="position: relative;top: 0px;">
+			<div style="position: relative;top: 0;">
 				<table id="activityTable" class="table table-hover" style="width: 900px;">
 					<thead>
 						<tr style="color: #B3B3B3;">
@@ -462,7 +466,7 @@
 					</thead>
 					<tbody>
 						<tr>
-							<td><a href="../activity/detail.detail.jsp" style="text-decoration: none;">发传单</a></td>
+							<td><a href="${contextPath}/workbench/activity/detail" style="text-decoration: none;">发传单</a></td>
 							<td>2020-10-10</td>
 							<td>2020-10-20</td>
 							<td>zhangsan</td>
